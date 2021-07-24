@@ -5,22 +5,35 @@ import { MaterialCommunityIcons} from 'react-native-vector-icons';
 
 import HomeScreen from './screens/mainTab';
 import CardsScreen from './screens/cardsTab';
+import BankScreen from './screens/bankScreen';
+import DisplayCardScreen from './screens/displayCardScreen';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
+
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-    <Tab.Navigator>
+    <Tab.Navigator inactiveColor="#003066">
       <Tab.Screen
        name="Home"
        component={HomeScreen}
        options={{
-         tabBarLabel: "Home",
+         tabBarLabel: "Головна",
          tabBarIcon: ({color}) => (
           <MaterialCommunityIcons name="home" color={color} size={26} />
+         ),
+        }}
+       />
+       <Tab.Screen
+       name="Bank"
+       component={BankScreen}
+       options={{
+         tabBarLabel: "Банк",
+         tabBarIcon: ({color}) => (
+          <MaterialCommunityIcons name="credit-card" color={color} size={26} />
          ),
         }}
        />
@@ -28,7 +41,7 @@ export default function App() {
        name="Cards"
        component={CardsScreen}
        options={{
-         tabBarLabel: 'Cards',
+         tabBarLabel: 'Карти',
          tabBarIcon: ({color}) => (
            <MaterialCommunityIcons name="cards" color={color} size={26} />
          )

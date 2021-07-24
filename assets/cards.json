@@ -3,17 +3,104 @@
         {
             "name": "Качатник",
             "rent": 20,
-            "color": "#fafa20"
+            "color": "#fafa20",
+            "price": 60,
+            "mortgage": 30,
+            "upgrade-price": 50,
+            "upgrade-rent": [30, 40, 110, 160, 250],
+            "key": "1.1"
         },
         {
             "name": "Курятник",
-            "rent": 20,
-            "color": "#fafa20"
+            "rent": 10,
+            "color": "#fafa20",
+            "price": 50,
+            "mortgage": 20,
+            "upgrade-price": 50,
+            "upgrade-rent": [20, 30, 100, 150, 250],
+            "key": "1.2"
         },
         {
-            "name": "Качатник",
+            "name": "Пшениця",
             "rent": 20,
-            "color": "#520606"
+            "color": "#520606",
+            "price": 200,
+            "mortgage": 100,
+            "upgrade-price": 100,
+            "upgrade-rent": [70, 200, 550, 750, 950],
+            "key": "5.1"
+        },
+        {
+            "name": "Пшениця",
+            "rent": 20,
+            "color": "#520606",
+            "price": 200,
+            "mortgage": 100,
+            "upgrade-price": 100,
+            "upgrade-rent": [70, 200, 550, 750, 950]
+        },
+        {
+            "name": "Пшениця",
+            "rent": 20,
+            "color": "#520606",
+            "price": 200,
+            "mortgage": 100,
+            "upgrade-price": 100,
+            "upgrade-rent": [70, 200, 550, 750, 950]
+        },
+        {
+            "name": "Пшениця",
+            "rent": 20,
+            "color": "#520606",
+            "price": 200,
+            "mortgage": 100,
+            "upgrade-price": 100,
+            "upgrade-rent": [70, 200, 550, 750, 950]
+        },
+        {
+            "name": "Пшениця",
+            "rent": 20,
+            "color": "#520606",
+            "price": 200,
+            "mortgage": 100,
+            "upgrade-price": 100,
+            "upgrade-rent": [70, 200, 550, 750, 950]
+        },
+        {
+            "name": "Пшениця",
+            "rent": 20,
+            "color": "#520606",
+            "price": 200,
+            "mortgage": 100,
+            "upgrade-price": 100,
+            "upgrade-rent": [70, 200, 550, 750, 950]
+        },
+        {
+            "name": "Пшениця",
+            "rent": 20,
+            "color": "#520606",
+            "price": 200,
+            "mortgage": 100,
+            "upgrade-price": 100,
+            "upgrade-rent": [70, 200, 550, 750, 950]
+        },
+        {
+            "name": "Пшениця",
+            "rent": 20,
+            "color": "#520606",
+            "price": 200,
+            "mortgage": 100,
+            "upgrade-price": 100,
+            "upgrade-rent": [70, 200, 550, 750, 950]
+        },
+        {
+            "name": "Пшениця",
+            "rent": 20,
+            "color": "#520606",
+            "price": 200,
+            "mortgage": 100,
+            "upgrade-price": 100,
+            "upgrade-rent": [70, 200, 550, 750, 950]
         }
     ]
 }
