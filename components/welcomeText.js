@@ -1,11 +1,12 @@
 import React from 'react';
+import { Touchable } from 'react-native';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function WelcomeText(props) {
+export default React.memo(function WelcomeText(props) {
     return (
-        <Text style={styles.text}>Welcome back, {props.userName}</Text>
+        <Text style={styles.text} onPress={props.onPress}>Welcome back, {props.userName}</Text>
     )
-}
+})
 
 const styles = StyleSheet.create({
     text: {
