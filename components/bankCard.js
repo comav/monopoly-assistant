@@ -3,23 +3,19 @@ import { TextPropTypes } from 'react-native';
 import { View, Text, Image, StyleSheet, ScrollView, ImageBackground } from 'react-native';
 
 let cardImage = require('../assets/card_hamburger.png');
-let cardLogo;
 let shiza = require('../assets/shiza_logo.png');
 let procard = require('../assets/procard_logo.png');
 
 export default function BankCard(props) {
 
-    if (props.network = 'ProCard') {
-        cardLogo = procard;
-    } if (props.network = 'ШИZA') {
-        cardLogo = shiza;
-    }
-
     return(
         <View style={styles.wrapper}>
             <ImageBackground source={cardImage} style={styles.card} imageStyle={{borderRadius:10}} resizeMode="stretch">
                 <Text style={styles.number}>{props.cardNumber}</Text>
-                <Image resizeMethod={'resize'} source={cardLogo} style={styles.network}></Image>
+                <View>
+                  <Text style={styles.balance}>{props.balance}</Text>
+                  <Image resizeMethod={'scale'} source={props.network == "ProCard" ? procard : shiza} style={styles.network}></Image>
+                </View>
             </ImageBackground>
         </View>
     )
@@ -41,7 +37,7 @@ const styles = StyleSheet.create({
     number: {
         fontSize: 20,
         backgroundColor: '#fff',
-        width: '46%',
+        width: '460%',
         marginBottom: 20,
         marginLeft: '30%'
     },
@@ -51,5 +47,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         marginRight: 20,
         marginLeft: '50%'
+    },
+    balance: {
+      backgroundColor: "#fff"
     }
 })

@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -10,15 +10,16 @@ const cardData = require('../assets/cards.json');
 const Stack = createStackNavigator();
 
 export default function CardsScreen() {
-
+  const [key, setKey] = useState(0);
     return(
         <NavigationContainer independent={true}>
             <ScrollView contentContainerStyle={styles.cardView}>
                 {cardData.cards.map(x => {
                     console.log(x);
+                    setKey(key + 1);
                     return (
                         <Card 
-                            key={x.key}
+                            key={key}
                             color={x.color} 
                             title={x.name} 
                             price={x.price + '₴'}
