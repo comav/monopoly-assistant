@@ -37,7 +37,8 @@
             "price": 200,
             "mortgage": 100,
             "upgrade-price": 100,
-            "upgrade-rent": [70, 200, 550, 750, 950]
+            "upgrade-rent": [70, 200, 550, 750, 950],
+            "key": 23
         },
         {
             "name": "Пшениця",
@@ -46,7 +47,8 @@
             "price": 200,
             "mortgage": 100,
             "upgrade-price": 100,
-            "upgrade-rent": [70, 200, 550, 750, 950]
+            "upgrade-rent": [70, 200, 550, 750, 950],
+            "key": 24
         },
         {
             "name": "Пшениця",
@@ -55,7 +57,8 @@
             "price": 200,
             "mortgage": 100,
             "upgrade-price": 100,
-            "upgrade-rent": [70, 200, 550, 750, 950]
+            "upgrade-rent": [70, 200, 550, 750, 950],
+            "key": 34
         },
         {
             "name": "Пшениця",
@@ -64,7 +67,8 @@
             "price": 200,
             "mortgage": 100,
             "upgrade-price": 100,
-            "upgrade-rent": [70, 200, 550, 750, 950]
+            "upgrade-rent": [70, 200, 550, 750, 950],
+            "key": 345
         },
         {
             "name": "Пшениця",
@@ -73,7 +77,8 @@
             "price": 200,
             "mortgage": 100,
             "upgrade-price": 100,
-            "upgrade-rent": [70, 200, 550, 750, 950]
+            "upgrade-rent": [70, 200, 550, 750, 950],
+            "key":385
         },
         {
             "name": "Пшениця",
@@ -82,7 +87,8 @@
             "price": 200,
             "mortgage": 100,
             "upgrade-price": 100,
-            "upgrade-rent": [70, 200, 550, 750, 950]
+            "upgrade-rent": [70, 200, 550, 750, 950],
+            "key":3556
         },
         {
             "name": "Пшениця",
@@ -91,7 +97,8 @@
             "price": 200,
             "mortgage": 100,
             "upgrade-price": 100,
-            "upgrade-rent": [70, 200, 550, 750, 950]
+            "upgrade-rent": [70, 200, 550, 750, 950],
+            "key":3535
         },
         {
             "name": "Пшениця",
@@ -100,7 +107,8 @@
             "price": 200,
             "mortgage": 100,
             "upgrade-price": 100,
-            "upgrade-rent": [70, 200, 550, 750, 950]
+            "upgrade-rent": [70, 200, 550, 750, 950],
+            "key":35455
         }
     ]
 }

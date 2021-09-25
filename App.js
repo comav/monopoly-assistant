@@ -18,11 +18,29 @@ export default function App() {
 
   //global const goes here
   const [userName, setUserName] = useState('Player');
+  const [cardData, setCardData] = useState([]);
 
   //global object
   const globalVar = {
     userName: userName,
     setUserName,
+    cardData: cardData,
+    setCardData
+  }
+
+  const updateData = () => {
+    try {
+      const response = fetch(`http://192.168.0.102:5502/getcardinfo?owner=${globalVar.userName}`, {
+        method: 'GET'
+      }
+      )
+        .then((response) => response.json())
+        .then(res => setCardData(res))
+        .then(console.log(cardData));
+    } catch (error) {
+      console.log('THERES A PROBLEM W/ GET CARD FETCH')
+      throw error;
+    }
   }
 
   return (
@@ -42,6 +60,9 @@ export default function App() {
           <Tab.Screen
             name="Bank"
             component={BankScreen}
+            onPress={() => {
+              updateData()
+            }}
             options={{
               tabBarLabel: "Банк",
               tabBarIcon: ({ color }) => (

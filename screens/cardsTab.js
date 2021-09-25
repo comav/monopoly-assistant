@@ -10,16 +10,14 @@ const cardData = require('../assets/cards.json');
 const Stack = createStackNavigator();
 
 export default function CardsScreen() {
-  const [key, setKey] = useState(0);
     return(
         <NavigationContainer independent={true}>
             <ScrollView contentContainerStyle={styles.cardView}>
                 {cardData.cards.map(x => {
                     console.log(x);
-                    setKey(key + 1);
                     return (
                         <Card 
-                            key={key}
+                            key={x.key}
                             color={x.color} 
                             title={x.name} 
                             price={x.price + '₴'}

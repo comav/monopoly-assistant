@@ -1,64 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 210 297"
-   version="1.1"
-   id="svg5"
-   inkscape:version="1.1 (ce6663b3b7, 2021-05-25)"
-   sodipodi:docname="procard_logo.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
-     id="namedview7"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:document-units="mm"
-     showgrid="false"
-     inkscape:zoom="0.8374018"
-     inkscape:cx="244.80483"
-     inkscape:cy="173.75172"
-     inkscape:window-width="1366"
-     inkscape:window-height="704"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="layer1"
-     inkscape:snap-bbox="true"
-     inkscape:bbox-nodes="false"
-     inkscape:snap-bbox-edge-midpoints="true"
-     inkscape:snap-bbox-midpoints="true" />
-  <defs
-     id="defs2" />
-  <g
-     inkscape:label="Слой 1"
-     inkscape:groupmode="layer"
-     id="layer1">
-    <circle
-       style="fill:#ff0d00;stroke:none;stroke-width:2.64583;fill-opacity:1"
-       id="path51"
-       cx="38.574577"
-       cy="46.467342"
-       r="19.39374" />
-    <circle
-       style="fill:#ffff00;fill-opacity:1;stroke:none;stroke-width:2.64583"
-       id="path51-3"
-       cx="57.968315"
-       cy="46.467342"
-       r="19.39374" />
-    <circle
-       style="fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:2.64583"
-       id="path51-6"
-       cx="77.362053"
-       cy="46.467342"
-       r="19.39374" />
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.1.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 558 160" style="enable-background:new 0 0 558 160;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{fill:#1D1D1B;}
+	.st2{font-family:'Cabin-Bold';}
+	.st3{font-size:76px;}
+</style>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="119.1309" y1="118.434" x2="214.0646" y2="32.5909" gradientTransform="matrix(1 0 0 -1 0 160)">
+	<stop  offset="0" style="stop-color:#51AE32"/>
+	<stop  offset="1" style="stop-color:#89CCC9"/>
+</linearGradient>
+<path class="st0" d="M97.6,16v128h128V16H97.6z M213.4,95.9h-21.1c-5.8,11-17.3,18.6-30.6,18.6S136.8,107,131,95.9h-21.7V63.4h22
+	c5.9-10.7,17.2-17.9,30.3-17.9c13,0,24.4,7.2,30.3,17.9h21.5L213.4,95.9L213.4,95.9z"/>
+<text transform="matrix(1 0 0 1 247.9612 95.5278)" class="st1 st2 st3">procard</text>
 </svg>

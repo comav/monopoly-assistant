@@ -16,7 +16,7 @@ export default function HomeScreen() {
 
   const createData = async () => {
     try {
-      const response = fetch(`http://192.168.0.103:5502/newcard?owner=${globalVar.userName}`, {
+      const response = fetch(`http://192.168.0.102:5502/newcard?owner=${globalVar.userName}`, {
         method: 'GET'
       })
     } catch (error) {
