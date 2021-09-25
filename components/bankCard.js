@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextPropTypes } from 'react-native';
 import { View, Text, Image, StyleSheet, ScrollView, ImageBackground } from 'react-native';
+import AppContext from '../components/AppContext';
 
 let shiza = require('../assets/shiza_logo.png');
 let procard = require('../assets/procard_logo.png');
@@ -15,12 +16,18 @@ let cardDesign = [
   },
   {
     image: require('../assets/card_terminal.png')
+  },
+  {
+    image: require('../assets/card_hex.png')
+  },
+  {
+    image: require('../assets/card_crimson.png')
   }
 ]
 
 export default function BankCard(props) {
 
-  console.warn(props);
+  // console.warn(props);
 
   return (
     <View style={styles.wrapper}>
@@ -43,7 +50,7 @@ const styles = StyleSheet.create({
   },
   card: {
     resizeMode: 'stretch',
-    width: '98%',
+    width: '99%',
     height: 220,
     display: 'flex',
     justifyContent: 'flex-end',
