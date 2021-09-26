@@ -1,11 +1,15 @@
 import React, { useState }  from "react";
-import { View, Text, Image, StyleSheet, Button, TextInput, SafeAreaView } from 'react-native';
+import { View, Text, Image, StyleSheet, Button, TextInput, SafeAreaView, ToastAndroid } from 'react-native';
 import { RadioButton } from "react-native-paper";
 
 export default function SendModal(props) {
 
   const [checked, setChecked] = useState('');
   const [sendMoneyAmount, setSendMoneyAmount] = useState(0);
+
+  function showToast(moneyAmount) {
+    ToastAndroid.show(`Sent ${moneyAmount}₴`, ToastAndroid.SHORT);
+  }
 
   async function sendMoney(receiver, amount) {
     console.log(receiver);
@@ -46,7 +50,9 @@ export default function SendModal(props) {
               keyboardType={'number-pad'}
               placeholder={'Money amount...'}
               defaultValue={'0'}
-              onChangeText={(money) => {setSendMoneyAmount(money)}}
+              onChangeText={(money) => {
+                setSendMoneyAmount(money);
+              }}
             />
           </SafeAreaView>
       </View>
@@ -54,6 +60,7 @@ export default function SendModal(props) {
         title='SEND'
         onPress={() => {
           sendMoney(checked, sendMoneyAmount);
+          showToast(sendMoneyAmount);
         }}
       />
     </View>

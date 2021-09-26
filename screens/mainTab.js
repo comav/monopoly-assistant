@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     width: 300,
   },
   button: {
-    marginTop: 100,
+    
   }
 })
 

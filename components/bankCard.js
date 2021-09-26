@@ -31,7 +31,7 @@ export default function BankCard(props) {
 
   return (
     <View style={styles.wrapper}>
-      <ImageBackground source={cardDesign[props.design].image} style={styles.card} imageStyle={{ borderRadius: 10 }} resizeMode="stretch">
+      <ImageBackground source={cardDesign[props.design].image} style={styles.card} imageStyle={{ borderRadius: 10 }} resizeMode="contain">
         <Text style={styles.number}>{props.cardNumber}</Text>
         <View style={styles.cardBottomWrapper}>
           <Text style={styles.balance}>{props.balance + '₴'}</Text>
@@ -62,17 +62,18 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   network: {
-    width: 140,
+    width: 100,
     height: 40,
     marginBottom: 20,
     marginRight: 20,
-    flexGrow: 1,
+    flexGrow: 3,
   },
   balance: {
     color: "#fff",
     fontSize: 20,
     height: '50%',
     flexGrow: 3,
+    width: 20,
     textAlign: 'center',
     textAlignVertical: 'center'
   },
