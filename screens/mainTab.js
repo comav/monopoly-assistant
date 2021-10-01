@@ -16,7 +16,7 @@ export default function HomeScreen() {
 
   const createData = async () => {
     try {
-      const response = fetch(`http://192.168.0.102:5502/newcard?owner=${globalVar.userName}`, {
+      const response = fetch(`http://${globalVar.ip}:5502/newcard?owner=${globalVar.userName}`, {
         method: 'GET'
       })
     } catch (error) {
@@ -38,6 +38,16 @@ export default function HomeScreen() {
               placeholder={'Твій нік...'}
               defaultValue={globalVar.userName}
               onChangeText={globalVar.setUserName}
+            />
+          </SafeAreaView>
+          <Text style={styles.modalTextSecond}>Будь ласка, введіть IP</Text>
+          <SafeAreaView style={styles.safeareaview}>
+            <TextInput
+              style={styles.input}
+              keyboardType={'number-pad'}
+              placeholder={'IP...'}
+              defaultValue={globalVar.ip}
+              onChangeText={globalVar.setIp}
             />
           </SafeAreaView>
           <Button
@@ -79,11 +89,15 @@ const styles = StyleSheet.create({
     borderColor: '#000',
     borderWidth: 1,
     borderRadius: 4,
-    marginTop: 100,
+    marginTop: 10,
     padding: 10,
   },
   modalText: {
     marginTop: '40%',
+    fontSize: 25,
+  },
+  modalTextSecond: {
+    marginTop: 10,
     fontSize: 25,
   },
   safeareaview: {

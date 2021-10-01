@@ -22,6 +22,9 @@ let cardDesign = [
   },
   {
     image: require('../assets/card_crimson.png')
+  },
+  {
+    image: require('../assets/card_triangles.png')
   }
 ]
 
