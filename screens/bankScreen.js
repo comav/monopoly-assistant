@@ -5,7 +5,7 @@ import { View, Text, Image, StyleSheet, ScrollView, Modal, Button, RefreshContro
 import BankCard from '../components/bankCard';
 import Delayed from '../components/delayed';
 import SendModal from '../screens/modals/sendModal';
-// import WriteCheckModal from '../screens/modals/writeCheckModal';
+import EmptyCard from '../components/emptyBankCard';
 
 import AppContext from '../components/AppContext';
 
@@ -88,15 +88,24 @@ export default function BankScreen() {
         onRefresh={onRefresh}
       />
       }>
-        <Delayed waitBeforeShow={500} style={styles.cardWrapper}>
-          <BankCard
-            cardNumber={cardData.number}
-            network={cardData.network}
-            design={cardData.design}
-            balance={cardData.balance} />
-        </Delayed>
+        <View style={styles.cardWrapper}>
+          <Delayed waitBeforeShow={100} style={styles.cardWrapper}>
+            {cardData.status == 200 ? <BankCard
+                cardNumber={cardData.number}
+                network={cardData.network}
+                design={cardData.design}
+                balance={cardData.balance} /> 
+                : 
+                <EmptyCard
+                createCard={true}
+                onPress={() => {
+                  fetchData();
+                }} />
+            }
+          </Delayed>
+        </View>
         <View style={styles.sendWrapper}>
-          <Button
+        <Button
             title={'Send money'}
             type={'solid'}
             style={styles.sendButton}
@@ -125,6 +134,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   sendWrapper: {
-    marginTop: 20,
+    width: '100%',
+    marginTop: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  sendButton: {
   }
 })

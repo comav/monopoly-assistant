@@ -1,5 +1,5 @@
 import React, { useState }  from "react";
-import { View, Text, Image, StyleSheet, Button, TextInput, SafeAreaView, ToastAndroid } from 'react-native';
+import { View, Text, Image, StyleSheet, Button, TextInput, SafeAreaView, ToastAndroid, TouchableOpacity } from 'react-native';
 import { RadioButton } from "react-native-paper";
 
 export default function SendModal(props) {
@@ -27,18 +27,17 @@ export default function SendModal(props) {
       <View>
         {props.userlist.map(x => {
           return (
-            <View style={styles.radioWrapper} key={x.value}>
-              <View>
-                <Text>{x.label}</Text>
-              </View>
+            <TouchableOpacity style={styles.radioWrapper} key={x.value} onPress={() => {setChecked(x.value)}}>
               <View>
                 <RadioButton
                   value={x.value}
                   status={checked === x.value ? 'checked' : 'unchecked'}
-                  onPress={() => {setChecked(x.value)}}
                 />
               </View>
-            </View>
+              <View style={styles.radioButtonTextWrapper}>
+                <Text>{x.label}</Text>
+              </View>
+            </TouchableOpacity>
           )
         })}
       </View>
@@ -81,6 +80,8 @@ const styles = StyleSheet.create({
   radioWrapper: {
     display: "flex",
     flexDirection: 'row',
+    borderColor: '#000',
+    borderWidth: 0.5,
   },  
   input: {
     height: 50,
@@ -90,4 +91,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     padding: 10,
   },
+  radioButtonTextWrapper: {
+    textAlignVertical: 'center',
+  }
 })

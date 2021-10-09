@@ -62,12 +62,6 @@ export default function HomeScreen() {
       </Modal>
 
       <WelcomeText userName={globalVar.userName} onPress={() => setModalOpen(true)}></WelcomeText>
-      <Button
-        title="check card"
-        type="solid"
-        onPress={() => {
-          createData();
-        }} />
     </ScrollView>
   )
 }
