@@ -3,10 +3,13 @@ import { View, Text, Image, StyleSheet, Modal, TextInput, SafeAreaView } from 'r
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Card, ListItem, Button, Icon } from 'react-native-elements';
+
 import ContentCard from '../components/contentCard';
+import SuggestionCard from '../components/suggestionCard';
 import WelcomeText from '../components/welcomeText';
 import BankCard from '../components/bankCard';
 import AppContext from '../components/AppContext';
+import PropertyCard from '../components/card';
 
 export default function HomeScreen() {
 
@@ -62,6 +65,8 @@ export default function HomeScreen() {
       </Modal>
 
       <WelcomeText userName={globalVar.userName} onPress={() => setModalOpen(true)}></WelcomeText>
+      <SuggestionCard suggestion={'Review your property'}></SuggestionCard>
+      <Text>More to come!</Text>
     </ScrollView>
   )
 }
@@ -97,8 +102,5 @@ const styles = StyleSheet.create({
   safeareaview: {
     width: 300,
   },
-  button: {
-    
-  }
 })
 

@@ -35,10 +35,12 @@ export default function BankCard(props) {
   return (
     <View style={styles.wrapper}>
       <ImageBackground source={cardDesign[props.design].image} style={styles.card} imageStyle={{ borderRadius: 10 }} resizeMode="contain">
-        <Text style={styles.number}>{props.cardNumber}</Text>
-        <View style={styles.cardBottomWrapper}>
-          <Text style={styles.balance}>{props.balance + '₴'}</Text>
-          <Image resizeMethod={'resize'} source={props.network == "ProCard" ? props.design == 2 ? procard_white : procard : shiza} style={styles.network}></Image>
+        <View style={styles.cardWrapper}>
+          <Text style={styles.number}>{props.cardNumber}</Text>
+          <View style={styles.cardBottomWrapper}>
+            <Text style={styles.balance}>{props.balance + '₴'}</Text>
+            <Image resizeMethod={'scale'} source={props.network == "ProCard" ? props.design == 2 ? procard_white : procard : shiza} style={styles.network}></Image>
+          </View>
         </View>
       </ImageBackground>
     </View>
@@ -52,11 +54,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   card: {
-    resizeMode: 'stretch',
-    width: '99%',
+    resizeMode: 'cover',
+    width: '100%',
+  },
+  cardWrapper: {
+    width: '100%',
     height: 220,
     display: 'flex',
     justifyContent: 'flex-end',
+    borderColor: 'green',
+    borderWidth: 2,
   },
   number: {
     fontSize: 30,

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect, useContext, useCallback } from 'react';
 import { Touchable } from 'react-native';
 import { View, Text, Image, StyleSheet, ScrollView, Modal, Button, RefreshControl } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 import BankCard from '../components/bankCard';
 import Delayed from '../components/delayed';
@@ -68,6 +69,7 @@ export default function BankScreen() {
 
   return (
     <View style={styles.wrapper}>
+      <StatusBar translucent backgroundColor="transparent" />
       <Modal animationType='slide' visible={sendModal} style={styles.modal}>
         <Button
           title={'close'}
@@ -125,7 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   wrapper: {
-    marginTop: 25,
+    marginTop: 35,
     width: '100%',
   },
   modal: {

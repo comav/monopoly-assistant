@@ -1,38 +1,62 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Pressable} from 'react-native';
+import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
+import { MaterialCommunityIcons } from 'react-native-vector-icons';
 
-export default function Card (props) {
-    return (
-        <Pressable>
-            <View style={[styles.cardWrapper, {backgroundColor: props.color}]} >
-                <Text style={styles.title}>{props.title}</Text>
-                <Text style={styles.price}>{props.price}</Text>
-            </View>
-        </Pressable>
-    )
+export default function Card(props) {
+  return (
+    <View style={styles.wrapper}>
+      <View style={styles.textWrapper}>
+        <Text style={styles.itemName}>lolkek</Text>
+      </View>
+      <View style={styles.cardBody}>
+        <MaterialCommunityIcons style={'homeIcon'} name={props.homes} size={78} />
+        <Text style={styles.fee}>Fee: 25₴</Text>
+      </View>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-    cardWrapper: {
-        backgroundColor: 'green',
-        display: 'flex',
-        alignSelf: 'center',
-        borderRadius: 7,
-        borderColor: 'rgba(94, 94, 94, 0.61)',
-        width: '100%',
-        height: 250,
-        marginTop: 25,
-        marginLeft: 10,
-        marginRight: 10,
-        borderWidth: 0.5,
+  wrapper: {
+    width: 130,
+    height: 175,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    margin: 8,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    title: {
-        fontSize: 35,
-    },
-    price: {
-        fontSize: 40,
-        textAlign: 'right',
-        marginTop: '100%',
-        marginRight: 10,
-    }
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+  },
+  textWrapper: {
+    backgroundColor: 'red',
+    height: 50,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+  },
+  itemName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  cardBody: {
+    display: 'flex',
+  },
+  fee: {
+    fontSize: 18,
+    flexGrow: 20,
+    alignSelf: 'baseline',
+  },
+  homeIcon: {
+    alignSelf: 'flex-end',
+    width: 1,
+  },
 })
