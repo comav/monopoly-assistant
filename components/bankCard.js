@@ -34,13 +34,11 @@ export default function BankCard(props) {
 
   return (
     <View style={styles.wrapper}>
-      <ImageBackground source={cardDesign[props.design].image} style={styles.card} imageStyle={{ borderRadius: 10 }} resizeMode="contain">
-        <View style={styles.cardWrapper}>
-          <Text style={styles.number}>{props.cardNumber}</Text>
-          <View style={styles.cardBottomWrapper}>
-            <Text style={styles.balance}>{props.balance + '₴'}</Text>
-            <Image resizeMethod={'scale'} source={props.network == "ProCard" ? props.design == 2 ? procard_white : procard : shiza} style={styles.network}></Image>
-          </View>
+      <ImageBackground source={cardDesign[props.design].image} style={styles.card} imageStyle={{borderRadius: 15}} resizeMode="stretch">
+        <Text style={styles.number}>{props.cardNumber}</Text>
+        <View style={styles.cardBottomWrapper}>
+          <Text style={styles.balance}>{props.balance + ' ₴'}</Text>
+          <Image source={props.network == "ProCard" ? props.design == 2 ? procard_white : procard : shiza} resizeMode='contain' style={styles.network}/>
         </View>
       </ImageBackground>
     </View>
@@ -49,47 +47,43 @@ export default function BankCard(props) {
 
 const styles = StyleSheet.create({
   wrapper: {
-    display: 'flex',
-    width: '100%',
-    alignItems: 'center',
+    width: '96%',
+    height: 250,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 4.65,
+    elevation: 8,
   },
   card: {
-    resizeMode: 'cover',
     width: '100%',
-  },
-  cardWrapper: {
-    width: '100%',
-    height: 220,
+    height: '100%',
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'flex-end',
-    borderColor: 'green',
-    borderWidth: 2,
   },
   number: {
-    fontSize: 30,
-    textAlign: 'center',
-    color: '#fff',
-    marginBottom: 10,
-  },
-  network: {
-    width: 100,
-    height: 40,
-    marginBottom: 20,
-    marginRight: 20,
-    flexGrow: 3,
-  },
-  balance: {
-    color: "#fff",
-    fontSize: 20,
-    height: '50%',
-    flexGrow: 3,
-    width: 20,
-    textAlign: 'center',
-    textAlignVertical: 'center'
+    color: 'white',
+    fontSize: 24,
   },
   cardBottomWrapper: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',
-  }
+    alignItems: 'center',
+    width: '100%',
+    margin: 10,
+  },
+  network: {
+    height: 75,
+    width: 175,
+  },
+  balance: {
+    color: 'white',
+    fontSize: 24,
+    width: '20%',
+    marginLeft: 10,
+  },
 })

@@ -19,7 +19,7 @@ export default function App() {
   //global const goes here
   const [userName, setUserName] = useState('Player');
   const [cardData, setCardData] = useState([]);
-  const [ip, setIp] = useState('192.168.0.102');
+  const [ip, setIp] = useState('192.168.0.125');
 
   //global object
   const globalVar = {

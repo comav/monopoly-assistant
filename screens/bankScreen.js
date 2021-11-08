@@ -46,7 +46,7 @@ export default function BankScreen() {
 
   async function fetchLists() {
     try {
-      const response = await fetch(`http://192.168.0.102:5502/getuserlist`, {
+      const response = await fetch(`http://${globalVar.ip}:5502/getuserlist`, {
         method: 'GET'
       })
         .then((response) => response.json())
@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
   cardWrapper: {
     display: 'flex',
     alignItems: 'center',
+    alignContent: 'center',
     justifyContent: 'center',
   },
   wrapper: {
