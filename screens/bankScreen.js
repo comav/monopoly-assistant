@@ -7,6 +7,8 @@ import BankCard from '../components/bankCard';
 import Delayed from '../components/delayed';
 import SendModal from '../screens/modals/sendModal';
 import EmptyCard from '../components/emptyBankCard';
+import ActionBubble from '../components/actionBubble';
+import ActionWrapper from '../components/actionWrapper';
 
 import AppContext from '../components/AppContext';
 
@@ -86,19 +88,19 @@ export default function BankScreen() {
       </Modal>
       <ScrollView refreshControl={
         <RefreshControl
-        refreshing={refreshing}
-        onRefresh={onRefresh}
-      />
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
       }>
         <View style={styles.cardWrapper}>
-          <Delayed waitBeforeShow={100} style={styles.cardWrapper}>
+          <Delayed waitBeforeShow={0} style={styles.cardWrapper}>
             {cardData.status == 200 ? <BankCard
-                cardNumber={cardData.number}
-                network={cardData.network}
-                design={cardData.design}
-                balance={cardData.balance} /> 
-                : 
-                <EmptyCard
+              cardNumber={cardData.number}
+              network={cardData.network}
+              design={cardData.design}
+              balance={cardData.balance} />
+              :
+              <EmptyCard
                 createCard={true}
                 onPress={() => {
                   fetchData();
@@ -106,15 +108,12 @@ export default function BankScreen() {
             }
           </Delayed>
         </View>
-        <View style={styles.sendWrapper}>
-        <Button
-            title={'Send money'}
-            type={'solid'}
-            style={styles.sendButton}
-            onPress={() => {
-              setSendModalOpen(true)
-            }} />
-        </View>
+        <ActionWrapper>
+          <ActionBubble title={'Send'} actionIcon={'circle-multiple'} colors={['#8360c3', '#2ebf91']} action={() => {
+            setSendModalOpen(true);
+            fetchData();
+          }} />
+        </ActionWrapper>
       </ScrollView>
     </View>
   )
@@ -126,6 +125,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.32,
+    shadowRadius: 5.46,
+
+    elevation: 9,
   },
   wrapper: {
     marginTop: 35,
@@ -142,6 +150,4 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
-  sendButton: {
-  }
 })

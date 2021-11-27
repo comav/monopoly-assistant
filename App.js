@@ -7,7 +7,6 @@ import AppContext from './components/AppContext';
 import HomeScreen from './screens/mainTab';
 import CardsScreen from './screens/cardsTab';
 import BankScreen from './screens/bankScreen';
-import DisplayCardScreen from './screens/displayCardScreen';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -19,7 +18,8 @@ export default function App() {
   //global const goes here
   const [userName, setUserName] = useState('Player');
   const [cardData, setCardData] = useState([]);
-  const [ip, setIp] = useState('192.168.0.125');
+  const [ip, setIp] = useState('192.168.0.102');
+  const [ownedProperty, setOwnedProperty] = useState([]);
 
   //global object
   const globalVar = {
@@ -49,7 +49,7 @@ export default function App() {
   return (
     <AppContext.Provider value={globalVar}>
       <NavigationContainer>
-        <Tab.Navigator inactiveColor="#003066">
+        <Tab.Navigator inactiveColor="#5f5f5f" activeColor="#000" barStyle={{backgroundColor: '#fff'}}>
           <Tab.Screen
             name="Home"
             component={HomeScreen}
@@ -95,4 +95,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  nav: {
+    backgroundColor: '#fff',
+  }
 });

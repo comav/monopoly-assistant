@@ -28,8 +28,8 @@ export default function EmptyBankCard(props) {
 
 const styles = StyleSheet.create({
   cardWrapper: {
-    width: '99%',
-    height: 220,
+    width: '96%',
+    height: 250,
     backgroundColor: '#83888c',
     borderRadius: 10,
     display: 'flex',

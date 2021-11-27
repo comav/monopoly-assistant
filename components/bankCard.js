@@ -34,11 +34,13 @@ export default function BankCard(props) {
 
   return (
     <View style={styles.wrapper}>
-      <ImageBackground source={cardDesign[props.design].image} style={styles.card} imageStyle={{borderRadius: 15}} resizeMode="stretch">
+      <ImageBackground source={cardDesign[props.design].image} style={styles.card} imageStyle={{ borderRadius: 15 }} resizeMode="stretch">
         <Text style={styles.number}>{props.cardNumber}</Text>
         <View style={styles.cardBottomWrapper}>
           <Text style={styles.balance}>{props.balance + ' ₴'}</Text>
-          <Image source={props.network == "ProCard" ? props.design == 2 ? procard_white : procard : shiza} resizeMode='contain' style={styles.network}/>
+          <View style={styles.networkWrapper}>
+            <Image source={props.network == "ProCard" ? props.design == 2 ? procard_white : procard : shiza} resizeMode='contain' style={styles.network} />
+          </View>
         </View>
       </ImageBackground>
     </View>
@@ -49,14 +51,6 @@ const styles = StyleSheet.create({
   wrapper: {
     width: '96%',
     height: 250,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.30,
-    shadowRadius: 4.65,
-    elevation: 8,
   },
   card: {
     width: '100%',
@@ -80,10 +74,15 @@ const styles = StyleSheet.create({
     height: 75,
     width: 175,
   },
+  networkWrapper: {
+    flexGrow: 1,
+  },
   balance: {
     color: 'white',
     fontSize: 24,
     width: '20%',
     marginLeft: 10,
+    flexGrow: 6,
+    textAlign: 'center',
   },
 })
