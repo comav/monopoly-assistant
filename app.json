@@ -21,8 +21,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/1x/foreground.png",
+        "backgroundColor": "#15616d"
       },
       "package": "com.comav.monopolyassistant"
     },
