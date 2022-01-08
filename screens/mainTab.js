@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, Modal, TextInput, SafeAreaView } from 'react-native';
+import { View, Text, Image, StyleSheet, Modal, TextInput, SafeAreaView, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Card, ListItem, Button, Icon } from 'react-native-elements';
@@ -24,6 +24,16 @@ export default function HomeScreen() {
       })
     } catch (error) {
       console.log('THERES A PROBLEM W/ GET CARD FETCH')
+      throw error;
+    }
+  }
+
+  async function changeCardDesign(designNum) {
+    try {
+      response = fetch(`http://${globalVar.ip}:5502/changedesign?user=${globalVar.userName}&design=${designNum}`, {
+        method: 'GET'
+      })
+    } catch (error) {
       throw error;
     }
   }
@@ -65,7 +75,40 @@ export default function HomeScreen() {
       </Modal>
 
       <WelcomeText userName={globalVar.userName} onPress={() => setModalOpen(true)}></WelcomeText>
-      <SuggestionCard suggestion={'Review your property'}></SuggestionCard>
+      <SuggestionCard suggestion={'Review your property'}>
+        <ScrollView horizontal={true} style={styles.scrollView} showsHorizontalScrollIndicator={false}>
+          <PropertyCard homes={'home-remove'} color={'red'}></PropertyCard>
+          <PropertyCard homes={'home-floor-1'} color={'green'}></PropertyCard>
+          <PropertyCard homes={'home-floor-2'} color={'#ffda00'}></PropertyCard>
+          <PropertyCard homes={'home-floor-3'} color={'blue'}></PropertyCard>
+          <PropertyCard homes={'home-floor-l'} color={'#00dbff'}></PropertyCard>
+        </ScrollView>
+      </SuggestionCard>
+      <SuggestionCard suggestion={'Change your card design'}>
+        <ScrollView horizontal={true} style={styles.scrollView} showsHorizontalScrollIndicator={false}>
+          <TouchableOpacity onPress={() => changeCardDesign(0)}>
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_hamburger.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => changeCardDesign(4)}>
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_crimson.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => changeCardDesign(1)}>
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_abstraction.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => changeCardDesign(3)}>
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_hex.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => changeCardDesign(2)}>
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_terminal.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => changeCardDesign(5)}>
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_triangles.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => changeCardDesign(6)}>
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_zebra.png')} />
+          </TouchableOpacity>
+        </ScrollView>
+      </SuggestionCard>
       <Text>More to come!</Text>
     </ScrollView>
   )
@@ -102,5 +145,12 @@ const styles = StyleSheet.create({
   safeareaview: {
     width: 300,
   },
+  cardSuggestionImage: {
+    height: 150,
+    width: 240,
+    marginLeft: 5,
+    marginRight: 5,
+    borderRadius: 10,
+  }
 })
 
