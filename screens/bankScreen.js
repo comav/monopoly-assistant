@@ -6,6 +6,8 @@ import { StatusBar } from 'expo-status-bar';
 import BankCard from '../components/bankCard';
 import Delayed from '../components/delayed';
 import SendModal from '../screens/modals/sendModal';
+import BuyModal from '../screens/modals/buyPropertyModal';
+import TradeModal from './modals/tradeModal';
 import EmptyCard from '../components/emptyBankCard';
 import ActionBubble from '../components/actionBubble';
 import ActionWrapper from '../components/actionWrapper';
@@ -18,14 +20,18 @@ export default function BankScreen() {
 
   const [cardData, setCardData] = useState({});
   const [userlist, setUserlist] = useState({});
+  const [propOwnageData, setPropOwnageData] = useState({});
   const [sendModal, setSendModalOpen] = useState(false);
+  const [buyModal, setBuyModalOpen] = useState(false);
+  const [tradeModal, setTradeModalOpen] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    console.log('jkggkjvkgvgjlv');
     fetchData();
+    fetchCardOwnageData();
     wait(1000).then(() => setRefreshing(false));
+    console.table(globalVar.cardOwnageData);
   }, [])
 
   const wait = (timeout) => {
@@ -59,15 +65,29 @@ export default function BankScreen() {
     }
   }
 
-  useEffect(() => {
-    fetchData();
-  }, [])
+  async function fetchCardOwnageData() {
+    try {
+      const response = await fetch(`http://${globalVar.ip}:5502/getpropertyownagedata`, {
+        method: 'GET'
+      })
+        .then((response) => response.json())
+        .then((res) => setPropOwnageData(res))
+        .then((res) => console.log(res))
+    } catch (error) {
+      console.log('Theres a problem with fetchCardOwnageData function');
+      throw error;
+    }
+  }
 
   useEffect(() => {
-    fetchLists();
+    fetchData();
+    fetchCardOwnageData();
+    fetchLists(); 
   }, [])
 
   // console.log(cardData);
+
+  console.log(propOwnageData);
 
   return (
     <View style={styles.wrapper}>
@@ -85,6 +105,28 @@ export default function BankScreen() {
           userlist={userlist}
           cardNumber={cardData.number}
         />
+      </Modal>
+      {/* <Modal animationType='slide' visible={buyModal}>
+        <Button
+          title="close"
+          type='solid'
+          onPress={() => {
+            setBuyModalOpen(false);
+          }}
+        />
+        <BuyModal propData={propOwnageData} />
+      </Modal> */}
+      <Modal animationType='slide' visible={tradeModal}>
+        <Button
+          title="close"
+          type='solid'
+          onPress={() => {
+            setTradeModalOpen(false);
+          }}
+        />
+        <Delayed waitBeforeShow={100}>
+        <TradeModal userlist={userlist} ownageData={propOwnageData} username={globalVar.username} />
+      </Delayed>
       </Modal>
       <ScrollView refreshControl={
         <RefreshControl
@@ -111,6 +153,15 @@ export default function BankScreen() {
         <ActionWrapper>
           <ActionBubble title={'Send'} actionIcon={'circle-multiple'} colors={['#8360c3', '#2ebf91']} action={() => {
             setSendModalOpen(true);
+            fetchData();
+          }} />
+          <ActionBubble title={'Update'} actionIcon={'arrow-up-bold-circle'} colors={['#004F2D', '#0A8754']} />
+          {/* <ActionBubble title={'Buy'} actionIcon={'home-plus'} colors={['#FF00AA', '#FF00AA']} action={() => {
+            setBuyModalOpen(true);
+            fetchData();
+          }} /> */}
+          <ActionBubble title={'Trade'} actionIcon={'sync'} colors={['#FFAA00', '#FF00AA']} action={() => {
+            setTradeModalOpen(true);
             fetchData();
           }} />
         </ActionWrapper>
