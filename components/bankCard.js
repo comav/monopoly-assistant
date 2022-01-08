@@ -25,6 +25,9 @@ let cardDesign = [
   },
   {
     image: require('../assets/card_triangles.png')
+  }, 
+  {
+    image: require('../assets/card_zebra.png')
   }
 ]
 
