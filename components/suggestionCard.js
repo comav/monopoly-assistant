@@ -8,13 +8,9 @@ export default function SuggestionCard(props) {
   return (
     <View style={styles.wrapper}>
       <Text style={styles.suggText}>{props.suggestion}</Text>
-      <ScrollView horizontal={true} style={styles.scrollView} showsHorizontalScrollIndicator={false}>
-        <PropertyCard homes={'home-remove'} color={'red'}></PropertyCard>
-        <PropertyCard homes={'home-floor-1'} color={'green'}></PropertyCard>
-        <PropertyCard homes={'home-floor-2'} color={'#ffda00'}></PropertyCard>
-        <PropertyCard homes={'home-floor-3'} color={'blue'}></PropertyCard>
-        <PropertyCard homes={'home-floor-l'} color={'#00dbff'}></PropertyCard>
-      </ScrollView>
+      <View style={styles.childrenWrapper}>
+        {props.children}
+      </View>
     </View>
   )
 }
@@ -40,7 +36,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     margin: 5,
   },
-  scrollView: {
+  childrenWrapper: {
     margin: 5,
   }
 })
