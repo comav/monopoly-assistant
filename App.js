@@ -1,15 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { MaterialCommunityIcons } from 'react-native-vector-icons';
+import React, {useState} from 'react';
+import {MaterialCommunityIcons} from 'react-native-vector-icons';
 import AppContext from './components/AppContext';
+import {Provider} from 'react-redux';
+import store from './components/store';
 
 import HomeScreen from './screens/mainTab';
 import CardsScreen from './screens/cardsTab';
 import BankScreen from './screens/bankScreen';
 
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {NavigationContainer} from '@react-navigation/native';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -20,6 +20,7 @@ export default function App() {
   const [cardData, setCardData] = useState([]);
   const [ip, setIp] = useState('192.168.0.103');
   const [cardOwnageData, setCardOwnageData] = useState({});
+  const [userlist, setUserlist] = useState([]);
 
   //global object
   const globalVar = {
@@ -31,13 +32,15 @@ export default function App() {
     setIp,
     cardOwnageData: cardOwnageData,
     setCardOwnageData,
+    userlist: userlist,
+    setUserlist,
   }
 
   const updateData = () => {
     try {
-      const response = fetch(`http://192.168.0.102:5502/getcardinfo?owner=${globalVar.userName}`, {
-        method: 'GET'
-      }
+      const response = fetch(`https://${globalVar.ip}:5502/getcardinfo?owner=${globalVar.userName}`, {
+          method: 'GET'
+        }
       )
         .then((response) => response.json())
         .then(res => setCardData(res))
@@ -49,55 +52,49 @@ export default function App() {
   }
 
   return (
-    <AppContext.Provider value={globalVar}>
-      <NavigationContainer>
-        <Tab.Navigator inactiveColor="#5f5f5f" activeColor="#000" barStyle={{backgroundColor: '#fff'}}>
-          <Tab.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{
-              tabBarLabel: "Головна",
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="home" color={color} size={26} />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Bank"
-            component={BankScreen}
-            onPress={() => {
-              updateData()
-            }}
-            options={{
-              tabBarLabel: "Банк",
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="credit-card" color={color} size={26} />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Cards"
-            component={CardsScreen}
-            options={{
-              tabBarLabel: 'Карти',
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="cards" color={color} size={26} />
-              )
-            }} />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </AppContext.Provider>
+    <Provider store={store}>
+      <AppContext.Provider value={globalVar}>
+        <NavigationContainer>
+          <Tab.Navigator inactiveColor="#5f5f5f" activeColor="#000" barStyle={{backgroundColor: '#fff'}}>
+            <Tab.Screen
+              name="Home"
+              component={HomeScreen}
+              tabPress={() => {
+                updateData()
+              }}
+              options={{
+                tabBarLabel: "Головна",
+                tabBarIcon: ({color}) => (
+                  <MaterialCommunityIcons name="home" color={color} size={26}/>
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Bank"
+              component={BankScreen}
+              tabPress={() => {
+                updateData()
+              }}
+              options={{
+                tabBarLabel: "Банк",
+                tabBarIcon: ({color}) => (
+                  <MaterialCommunityIcons name="credit-card" color={color} size={26}/>
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Cards"
+              component={CardsScreen}
+              options={{
+                tabBarLabel: 'Карти',
+                tabBarIcon: ({color}) => (
+                  <MaterialCommunityIcons name="cards" color={color} size={26}/>
+                )
+              }}/>
+          </Tab.Navigator>
+        </NavigationContainer>
+      </AppContext.Provider>
+    </Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  nav: {
-    backgroundColor: '#fff',
-  }
-});

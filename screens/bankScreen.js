@@ -1,30 +1,34 @@
-import React, { useState, useEffect, useLayoutEffect, useContext, useCallback } from 'react';
-import { Touchable } from 'react-native';
-import { View, Text, Image, StyleSheet, ScrollView, Modal, Button, RefreshControl } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react';
+import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {StatusBar} from 'expo-status-bar';
+import BottomSheet from '@gorhom/bottom-sheet';
 
 import BankCard from '../components/bankCard';
-import Delayed from '../components/delayed';
-import SendModal from '../screens/modals/sendModal';
-import BuyModal from '../screens/modals/buyPropertyModal';
-import TradeModal from './modals/tradeModal';
 import EmptyCard from '../components/emptyBankCard';
 import ActionBubble from '../components/actionBubble';
 import ActionWrapper from '../components/actionWrapper';
+import SendModal from "./modals/sendModal";
 
 import AppContext from '../components/AppContext';
+
+import updateData from '../components/functions/updateData';
 
 export default function BankScreen() {
 
   const globalVar = useContext(AppContext);
 
   const [cardData, setCardData] = useState({});
-  const [userlist, setUserlist] = useState({});
   const [propOwnageData, setPropOwnageData] = useState({});
   const [sendModal, setSendModalOpen] = useState(false);
   const [buyModal, setBuyModalOpen] = useState(false);
   const [tradeModal, setTradeModalOpen] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+
+  const bottomSheetRef = useRef(null);
+  const snapPoints = useMemo(() => ['12%', '68%'], []);
+  const handleSheetChanges = useCallback((index) => {
+    console.log('handleSheetChanges', index);
+  }, []);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -41,8 +45,8 @@ export default function BankScreen() {
   async function fetchData() {
     try {
       const response = await fetch(`http://${globalVar.ip}:5502/getcardinfo?owner=${globalVar.userName}`, {
-        method: 'GET'
-      }
+          method: 'GET'
+        }
       )
         .then((response) => response.json())
         .then(res => setCardData(res));
@@ -58,7 +62,7 @@ export default function BankScreen() {
         method: 'GET'
       })
         .then((response) => response.json())
-        .then(res => setUserlist(res));
+        .then(res => globalVar.setUserlist(res));
     } catch (error) {
       console.log('THERES A PROBLEM W/ GET USERLISTS FETCH')
       throw error;
@@ -82,7 +86,7 @@ export default function BankScreen() {
   useEffect(() => {
     fetchData();
     fetchCardOwnageData();
-    fetchLists(); 
+    fetchLists();
   }, [])
 
   // console.log(cardData);
@@ -91,21 +95,8 @@ export default function BankScreen() {
 
   return (
     <View style={styles.wrapper}>
-      <StatusBar translucent backgroundColor="transparent" />
-      <Modal animationType='slide' visible={sendModal} style={styles.modal}>
-        <Button
-          title={'close'}
-          type={'solid'}
-          onPress={() => {
-            setSendModalOpen(false);
-            fetchData();
-          }}
-        />
-        <SendModal
-          userlist={userlist}
-          cardNumber={cardData.number}
-        />
-      </Modal>
+      <StatusBar translucent backgroundColor="transparent"/>
+
       {/* <Modal animationType='slide' visible={buyModal}>
         <Button
           title="close"
@@ -116,56 +107,61 @@ export default function BankScreen() {
         />
         <BuyModal propData={propOwnageData} />
       </Modal> */}
-      <Modal animationType='slide' visible={tradeModal}>
-        <Button
-          title="close"
-          type='solid'
-          onPress={() => {
-            setTradeModalOpen(false);
-          }}
-        />
-        <Delayed waitBeforeShow={100}>
-        <TradeModal userlist={userlist} ownageData={propOwnageData} username={globalVar.username} />
-      </Delayed>
-      </Modal>
+      {/*<Modal animationType='slide' visible={tradeModal}>*/}
+      {/*  <Button*/}
+      {/*    title="close"*/}
+      {/*    type='solid'*/}
+      {/*    onPress={() => {*/}
+      {/*      setTradeModalOpen(false);*/}
+      {/*    }}*/}
+      {/*  />*/}
+      {/*  <TradeModal userlist={userlist} ownageData={propOwnageData} username={globalVar.username} />*/}
+      {/*</Modal>*/}
       <ScrollView refreshControl={
         <RefreshControl
           refreshing={refreshing}
           onRefresh={onRefresh}
         />
       }>
+
         <View style={styles.cardWrapper}>
-          <Delayed waitBeforeShow={0} style={styles.cardWrapper}>
-            {cardData.status == 200 ? <BankCard
+          {cardData.status == 200 ? <BankCard
               cardNumber={cardData.number}
               network={cardData.network}
               design={cardData.design}
-              balance={cardData.balance} />
-              :
-              <EmptyCard
-                createCard={true}
-                onPress={() => {
-                  fetchData();
-                }} />
-            }
-          </Delayed>
+              balance={cardData.balance}/>
+            :
+            <EmptyCard
+              createCard={true}
+              onPress={() => {
+                fetchData();
+              }}/>
+          }
         </View>
+
         <ActionWrapper>
-          <ActionBubble title={'Send'} actionIcon={'circle-multiple'} colors={['#8360c3', '#2ebf91']} action={() => {
-            setSendModalOpen(true);
-            fetchData();
-          }} />
-          <ActionBubble title={'Update'} actionIcon={'arrow-up-bold-circle'} colors={['#004F2D', '#0A8754']} />
+
+          <ActionBubble title={'Update'} actionIcon={'arrow-up-bold-circle'} colors={['#004F2D', '#0A8754']}/>
           {/* <ActionBubble title={'Buy'} actionIcon={'home-plus'} colors={['#FF00AA', '#FF00AA']} action={() => {
             setBuyModalOpen(true);
             fetchData();
           }} /> */}
-          <ActionBubble title={'Trade'} actionIcon={'sync'} colors={['#FFAA00', '#FF00AA']} action={() => {
+          <ActionBubble title={'Trade'} actionIcon={'sync'} colors={['#ffaa00', '#FF00AA']} action={() => {
             setTradeModalOpen(true);
             fetchData();
-          }} />
+          }}/>
         </ActionWrapper>
+
       </ScrollView>
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}
+      >
+        <Text style={{fontSize: 29, marginLeft: 10, fontWeight: '100'}}>Send money</Text>
+        <SendModal cardNumber={cardData.number} />
+      </BottomSheet>
     </View>
   )
 }
@@ -176,6 +172,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center',
+    zIndex: 1,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -189,6 +186,7 @@ const styles = StyleSheet.create({
   wrapper: {
     marginTop: 35,
     width: '100%',
+    height: '99%',
   },
   modal: {
     display: 'flex',
@@ -201,4 +199,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
+  bottomWrapper: {
+    backgroundColor: 'black',
+  }
 })

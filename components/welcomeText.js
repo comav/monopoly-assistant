@@ -1,6 +1,5 @@
 import React from 'react';
-import { Touchable } from 'react-native';
-import { View, Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 
 export default React.memo(function WelcomeText(props) {
     return (
