@@ -1,8 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useState, useContext } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, Modal, TouchableOpacity } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { View, Text, StyleSheet, ScrollView, Modal, TouchableOpacity } from 'react-native';
 import CardFlip from 'react-native-card-flip';
 import Card from '../components/card';
 
@@ -10,13 +8,11 @@ import AppContext from '../components/AppContext';
 
 const cardData = require('../assets/cards.json');
 
-const Stack = createStackNavigator();
-
 export default function CardsScreen() {
   const globalVar = useContext(AppContext);
   const [modalVisible, setModalVisible] = useState(true);
   return (
-    <NavigationContainer independent={true}>
+      <View>
       <Modal visible={modalVisible}>
         <CardFlip style={styles.cardContainer} ref={(cardDetails) => this.cardDetails = cardDetails} >
           <TouchableOpacity style={styles.cardDetails} onPress={() => this.cardDetails.flip()} >
@@ -42,7 +38,7 @@ export default function CardsScreen() {
           )
         })}
       </ScrollView>
-    </NavigationContainer>
+      </View>
   )
 }
 

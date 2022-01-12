@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import AppContext from '../components/AppContext';
 
 export default function EmptyBankCard(props) {
@@ -8,7 +8,7 @@ export default function EmptyBankCard(props) {
 
   const createData = async () => {
     try {
-      const response = fetch(`http://${globalVar.ip}:5502/newcard?owner=${globalVar.userName}`, {
+      const response = fetch(`https://${globalVar.ip}:5502/newcard?owner=${globalVar.userName}`, {
         method: 'GET'
       })
     } catch (error) {
@@ -17,7 +17,7 @@ export default function EmptyBankCard(props) {
     }
   }
 
-  if (props.createCard == true) {
+  if (props.createCard) {
     return (
       <TouchableOpacity onPress={() => {createData()}} style={styles.cardWrapper}>
         <Text style={styles.text}>Theres no card, click to make one</Text>

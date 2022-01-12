@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { View, Text, Button, ScrollView } from "react-native";
-import { BlurView } from "expo-blur";
 
 import Card from '../../components/card';
 
@@ -28,14 +27,12 @@ export default function BuyProperty(props) {
             )
           } else {
             return (
-              <BlurView intensity={100}>
                 <Card
                   color={'#000'}
                   title={x.name}
                   homes={'home-remove'}
                   price={'None'}
                 />
-              </BlurView>
             )
           }
         })}

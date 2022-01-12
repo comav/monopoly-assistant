@@ -1,13 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, Image, StyleSheet, Modal, TextInput, SafeAreaView, TouchableOpacity } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Card, ListItem, Button, Icon } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 
-import ContentCard from '../components/contentCard';
 import SuggestionCard from '../components/suggestionCard';
 import WelcomeText from '../components/welcomeText';
-import BankCard from '../components/bankCard';
 import AppContext from '../components/AppContext';
 import PropertyCard from '../components/card';
 
@@ -30,9 +27,22 @@ export default function HomeScreen() {
 
   async function changeCardDesign(designNum) {
     try {
-      response = fetch(`http://${globalVar.ip}:5502/changedesign?user=${globalVar.userName}&design=${designNum}`, {
+      const response = fetch(`http://${globalVar.ip}:5502/changedesign?user=${globalVar.userName}&design=${designNum}`, {
         method: 'GET'
       })
+        .then(console.log(globalVar.userName))
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async function updateUserlist() {
+    try {
+      const response = fetch(`http://${globalVar.ip}:5502/getuserlist`, {
+        method: 'GET'
+      })
+        .then(response => response.json())
+        .then(res => globalVar.setUserlist(res))
     } catch (error) {
       throw error;
     }
@@ -74,14 +84,14 @@ export default function HomeScreen() {
         </View>
       </Modal>
 
-      <WelcomeText userName={globalVar.userName} onPress={() => setModalOpen(true)}></WelcomeText>
+      <WelcomeText userName={globalVar.userName} onPress={() => setModalOpen(true)} />
       <SuggestionCard suggestion={'Review your property'}>
         <ScrollView horizontal={true} style={styles.scrollView} showsHorizontalScrollIndicator={false}>
-          <PropertyCard homes={'home-remove'} color={'red'}></PropertyCard>
-          <PropertyCard homes={'home-floor-1'} color={'green'}></PropertyCard>
-          <PropertyCard homes={'home-floor-2'} color={'#ffda00'}></PropertyCard>
-          <PropertyCard homes={'home-floor-3'} color={'blue'}></PropertyCard>
-          <PropertyCard homes={'home-floor-l'} color={'#00dbff'}></PropertyCard>
+          <PropertyCard homes={'home-remove'} color={'red'}/>
+          <PropertyCard homes={'home-floor-1'} color={'green'}/>
+          <PropertyCard homes={'home-floor-2'} color={'#ffda00'}/>
+          <PropertyCard homes={'home-floor-3'} color={'blue'}/>
+          <PropertyCard homes={'home-floor-l'} color={'#00dbff'}/>
         </ScrollView>
       </SuggestionCard>
       <SuggestionCard suggestion={'Change your card design'}>
@@ -107,7 +117,22 @@ export default function HomeScreen() {
           <TouchableOpacity onPress={() => changeCardDesign(6)}>
             <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_zebra.png')} />
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => changeCardDesign(7)}>
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_shapes.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => changeCardDesign(8)}>
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_icecream.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => changeCardDesign(9)}>
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_waves.png')} />
+          </TouchableOpacity>
         </ScrollView>
+      </SuggestionCard>
+      <SuggestionCard suggestion={'Debug panel'}>
+        <Button
+        onPress={() => updateUserlist()}
+        title={'Update userlist'}
+        />
       </SuggestionCard>
       <Text>More to come!</Text>
     </ScrollView>

@@ -1,10 +1,7 @@
 import React from 'react';
-import { Text, View, ScrollView, Image, StyleSheet } from 'react-native';
-import PropertyCard from '../components/card';
+import { Text, View, StyleSheet } from 'react-native';
 
 export default function SuggestionCard(props) {
-
-
   return (
     <View style={styles.wrapper}>
       <Text style={styles.suggText}>{props.suggestion}</Text>
@@ -32,7 +29,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   suggText: {
-    fontWeight: 'bold',
+    fontWeight: '100',
     fontSize: 24,
     margin: 5,
   },
