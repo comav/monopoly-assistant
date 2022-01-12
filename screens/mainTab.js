@@ -38,7 +38,7 @@ export default function HomeScreen() {
 
   async function updateUserlist() {
     try {
-      const response = fetch(`https://${globalVar.ip}:5502/getuserlist`, {
+      const response = fetch(`http://${globalVar.ip}:5502/getuserlist`, {
         method: 'GET'
       })
         .then(response => response.json())
@@ -116,6 +116,15 @@ export default function HomeScreen() {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => changeCardDesign(6)}>
             <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_zebra.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => changeCardDesign(7)}>
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_shapes.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => changeCardDesign(8)}>
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_icecream.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => changeCardDesign(9)}>
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_waves.png')} />
           </TouchableOpacity>
         </ScrollView>
       </SuggestionCard>
