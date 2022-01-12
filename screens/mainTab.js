@@ -27,9 +27,10 @@ export default function HomeScreen() {
 
   async function changeCardDesign(designNum) {
     try {
-      const response = fetch(`https://${globalVar.ip}:5502/changedesign?user=${globalVar.userName}&design=${designNum}`, {
+      const response = fetch(`http://${globalVar.ip}:5502/changedesign?user=${globalVar.userName}&design=${designNum}`, {
         method: 'GET'
       })
+        .then(console.log(globalVar.userName))
     } catch (error) {
       throw error;
     }
