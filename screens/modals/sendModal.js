@@ -4,8 +4,6 @@ import AppContext from "../../components/AppContext";
 import {Picker} from "@react-native-picker/picker";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import updateData from "../../components/functions/updateData";
-
 export default function SendModal(props) {
 
   const globalVar = useContext(AppContext);
