@@ -28,6 +28,15 @@ let cardDesign = [
   }, 
   {
     image: require('../assets/card_zebra.png')
+  },
+  {
+    image: require('../assets/card_shapes.png')
+  },
+  {
+    image: require('../assets/card_icecream.png')
+  },
+  {
+    image: require('../assets/card_waves.png')
   }
 ]
 
