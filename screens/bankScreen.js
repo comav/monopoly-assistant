@@ -11,11 +11,13 @@ import SendModal from "./modals/sendModal";
 
 import AppContext from '../components/AppContext';
 
-import updateData from '../components/functions/updateData';
+// import updateData from '../components/functions/updateData';
 
 export default function BankScreen() {
 
   const globalVar = useContext(AppContext);
+
+  console.log(globalVar);
 
   const [cardData, setCardData] = useState({});
   const [propOwnageData, setPropOwnageData] = useState({});
@@ -32,7 +34,7 @@ export default function BankScreen() {
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    fetchData();
+    updateData();
     fetchCardOwnageData();
     wait(1000).then(() => setRefreshing(false));
     console.table(globalVar.cardOwnageData);
@@ -125,7 +127,7 @@ export default function BankScreen() {
       }>
 
         <View style={styles.cardWrapper}>
-          {cardData.status == 200 ? <BankCard
+          {cardData ? <BankCard
               cardNumber={cardData.number}
               network={cardData.network}
               design={cardData.design}
