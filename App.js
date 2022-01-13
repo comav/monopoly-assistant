@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import {MaterialCommunityIcons} from 'react-native-vector-icons';
 import AppContext from './components/AppContext';
+
 import {Provider} from 'react-redux';
-import store from './components/store';
+import {createStore} from "redux";
+import usernameReducer from "./components/redux/reducers/usernameReducer";
 
 import HomeScreen from './screens/mainTab';
 import CardsScreen from './screens/cardsTab';
@@ -12,6 +14,8 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import {NavigationContainer} from '@react-navigation/native';
 
 const Tab = createMaterialBottomTabNavigator();
+
+const store = createStore(usernameReducer);
 
 export default function App() {
 
