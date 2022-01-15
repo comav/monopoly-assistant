@@ -4,6 +4,9 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Button } from 'react-native-elements';
 
 import {changeUsername} from "../components/redux/actions/usernameAction";
+import {updateCardData} from "../components/redux/actions/cardDataAction";
+import {changeIP} from "../components/redux/actions/ipAction";
+import {updateUserlist} from "../components/redux/actions/userlistAction";
 
 import SuggestionCard from '../components/suggestionCard';
 import WelcomeText from '../components/welcomeText';
@@ -32,7 +35,7 @@ function HomeScreen(props) {
 
   async function changeCardDesign(designNum) {
     try {
-      const response = fetch(`http://${globalVar.ip}:5502/changedesign?user=${globalVar.userName}&design=${designNum}`, {
+      const response = fetch(`http://${props.ip.ip}:5502/changedesign?user=${props.username.username}&design=${designNum}`, {
         method: 'GET'
       })
         .then(console.log(globalVar.userName))
@@ -47,15 +50,29 @@ function HomeScreen(props) {
         method: 'GET'
       })
         .then(response => response.json())
-        .then(res => globalVar.setUserlist(res))
+        .then(res => props.updateUserlist(res))
     } catch (error) {
+      throw error;
+    }
+  }
+
+  async function fetchData() {
+    try {
+      const response = await fetch(`http://${globalVar.ip}:5502/getcardinfo?owner=${globalVar.userName}`, {
+          method: 'GET'
+        }
+      )
+        .then((response) => response.json())
+        .then(res => props.updateCardData(res))
+        .then(() => console.log('SUS', props))
+    } catch (error) {
+      console.log('THERES A PROBLEM W/ GET CARD FETCH')
       throw error;
     }
   }
 
   return (
     <ScrollView contentContainerStyle={styles.mainWrapper}>
-
       <Modal animationType={'slide'} visible={modalOpen}>
         <View style={styles.modal}>
           <Text style={styles.modalText}>Будь ласка, введіть ваш нік</Text>
@@ -68,7 +85,6 @@ function HomeScreen(props) {
               onChangeText={(username) => {
                 globalVar.setUserName(username)
                 props.changeUsername(username)
-                console.log(props.username)
               }}
             />
           </SafeAreaView>
@@ -88,6 +104,7 @@ function HomeScreen(props) {
             style={styles.button}
             onPress={() => {
               setModalOpen(false);
+              fetchData();
             }}
           />
         </View>
@@ -104,7 +121,7 @@ function HomeScreen(props) {
         </ScrollView>
       </SuggestionCard>
       <SuggestionCard suggestion={'Change your card design'}>
-        <ScrollView horizontal={true} style={styles.scrollView} showsHorizontalScrollIndicator={false}>
+        <ScrollView horizontal={true} style={styles.scrollCardView} showsHorizontalScrollIndicator={false}>
           <TouchableOpacity onPress={() => changeCardDesign(0)}>
             <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_hamburger.png')} />
           </TouchableOpacity>
@@ -147,11 +164,11 @@ function HomeScreen(props) {
           onPress={() => {
             props.changeUsername("Sussy Baka")
             console.log("Username prop", props.username);
+            console.log(props)
           }}
         />
       </SuggestionCard>
       <Text>More to come!</Text>
-      <Text>Redux value: {props.username}</Text>
     </ScrollView>
   )
 }
@@ -193,17 +210,27 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     borderRadius: 10,
+  },
+  scrollCardView: {
+    marginBottom: 5
   }
 })
 
 const mapStateToProps = (state) => {
-  const {username} = state;
-  return {username};
+  return {
+    cardData: state.cardData,
+    username: state.username,
+    ip: state.ip,
+    userlist: state.userlist,
+  }
 }
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     changeUsername,
+    updateCardData,
+    changeIP,
+    updateUserlist,
   }, dispatch)
 );
 

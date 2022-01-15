@@ -1,10 +1,16 @@
 import React, {useContext, useState} from 'react';
-import {StyleSheet, Text, View, TextInput, Button, TouchableOpacity, ToastAndroid} from "react-native";
+import {StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View} from "react-native";
 import AppContext from "../../components/AppContext";
 import {Picker} from "@react-native-picker/picker";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function SendModal(props) {
+import {updateCardData} from "../../components/redux/actions/cardDataAction";
+import {updateUserlist} from "../../components/redux/actions/userlistAction";
+import {changeUsername} from "../../components/redux/actions/usernameAction";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+
+function SendModal(props) {
 
   const globalVar = useContext(AppContext);
 
@@ -13,19 +19,41 @@ export default function SendModal(props) {
 
   async function sendPaymentRequest() {
     try {
-      const response = fetch(`http://${globalVar.ip}:5502/transaction?sender=${props.cardNumber}&receiver=${selectedUser}&amount=${moneyAmount}`, {
+      const response = fetch(`http://${globalVar.ip}:5502/transaction?sender=${props.cardData.number}&receiver=${selectedUser}&amount=${moneyAmount}`, {
         method: 'GET'
       })
-        .then(
-          ToastAndroid.show(`Sent ${moneyAmount} UAH`, 1000)
-        )
         .then(() => {
-            setSelectedUser('0000 0000 0000 0000')
-            onChangeMoneyAmount(null)
+            if (moneyAmount === null) {
+              ToastAndroid.show(`Nothing has been done`, 1000)
+            } else {
+              ToastAndroid.show(`Sent ${moneyAmount} UAH`, 1000)
+            }
           }
         )
+        .then(() => {
+          onChangeMoneyAmount(null)
+        })
+        .then(() => updateData())
     } catch (e) {
       throw e;
+    }
+  }
+
+  async function updateData() {
+    if (selectedUser === "do_nothing") {
+      return;
+    }
+    try {
+      const response = await fetch(`http://${globalVar.ip}:5502/getcardinfo?owner=${globalVar.userName}`, {
+          method: 'GET'
+        }
+      )
+        .then((response) => response.json())
+        .then(res => props.updateCardData(res))
+        .then(() => console.log('SUS', props))
+    } catch (error) {
+      console.log('THERES A PROBLEM W/ GET CARD FETCH')
+      throw error;
     }
   }
 
@@ -40,10 +68,16 @@ export default function SendModal(props) {
           }}
           style={styles.picker}
         >
-          {globalVar.userlist?.map((item) => {
-            return (
-              <Picker.Item label={item.label} value={item.value} key={item.value} />
-            )
+          {props.userlist?.map((item) => {
+            if (item.label === globalVar.userName) {
+              return (
+                <Picker.Item label={"Choose one..."} value={"do_nothing"} key={"Current_user"}/>
+              )
+            } else {
+              return (
+                <Picker.Item label={item.label} value={item.value} key={item.value}/>
+              )
+            }
           })}
         </Picker>
       </View>
@@ -58,13 +92,13 @@ export default function SendModal(props) {
         />
       </View>
       <View style={styles.buttonWrapper}>
-      <TouchableOpacity style={styles.button} onPress={() => sendPaymentRequest()}>
-        <Text style={{fontSize: 24}}>SEND</Text>
-        <MaterialCommunityIcons name={'send'} style={{fontSize: 24, marginLeft: 5}} />
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => sendPaymentRequest()}>
+          <Text style={{fontSize: 24}}>SEND</Text>
+          <MaterialCommunityIcons name={'send'} style={{fontSize: 24, marginLeft: 5}}/>
+        </TouchableOpacity>
       </View>
-</View>
-)
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -105,3 +139,21 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
 })
+
+const mapStateToProps = (state) => {
+  return {
+    cardData: state.cardData,
+    userlist: state.userlist,
+    username: state.username,
+  }
+}
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    updateCardData,
+    updateUserlist,
+    changeUsername,
+  }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(SendModal);

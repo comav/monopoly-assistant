@@ -14,7 +14,7 @@ export default function SuggestionCard(props) {
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: '#e8e8e8',
+    backgroundColor: '#efefef',
     width: '96%',
     borderRadius: 10,
     shadowColor: "#000",

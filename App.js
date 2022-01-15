@@ -4,7 +4,7 @@ import AppContext from './components/AppContext';
 
 import {Provider} from 'react-redux';
 import {createStore} from "redux";
-import usernameReducer from "./components/redux/reducers/usernameReducer";
+import rootReducer from "./components/redux/reducers/rootReducer";
 
 import HomeScreen from './screens/mainTab';
 import CardsScreen from './screens/cardsTab';
@@ -15,7 +15,7 @@ import {NavigationContainer} from '@react-navigation/native';
 
 const Tab = createMaterialBottomTabNavigator();
 
-const store = createStore(usernameReducer);
+const store = createStore(rootReducer);
 
 export default function App() {
 
