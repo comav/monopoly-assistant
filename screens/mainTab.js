@@ -3,12 +3,17 @@ import { View, Text, Image, StyleSheet, Modal, TextInput, SafeAreaView, Touchabl
 import { ScrollView } from 'react-native-gesture-handler';
 import { Button } from 'react-native-elements';
 
+import {changeUsername} from "../components/redux/actions/usernameAction";
+
 import SuggestionCard from '../components/suggestionCard';
 import WelcomeText from '../components/welcomeText';
 import AppContext from '../components/AppContext';
 import PropertyCard from '../components/card';
 
-export default function HomeScreen() {
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+
+function HomeScreen(props) {
 
   const globalVar = useContext(AppContext);
 
@@ -60,7 +65,11 @@ export default function HomeScreen() {
               keyboardType={'default'}
               placeholder={'Твій нік...'}
               defaultValue={globalVar.userName}
-              onChangeText={globalVar.setUserName}
+              onChangeText={(username) => {
+                globalVar.setUserName(username)
+                props.changeUsername(username)
+                console.log(props.username)
+              }}
             />
           </SafeAreaView>
           <Text style={styles.modalTextSecond}>Будь ласка, введіть IP</Text>
@@ -133,8 +142,16 @@ export default function HomeScreen() {
         onPress={() => updateUserlist()}
         title={'Update userlist'}
         />
+        <Button
+          title={'Change redux value'}
+          onPress={() => {
+            props.changeUsername("Sussy Baka")
+            console.log("Username prop", props.username);
+          }}
+        />
       </SuggestionCard>
       <Text>More to come!</Text>
+      <Text>Redux value: {props.username}</Text>
     </ScrollView>
   )
 }
@@ -179,3 +196,15 @@ const styles = StyleSheet.create({
   }
 })
 
+const mapStateToProps = (state) => {
+  const {username} = state;
+  return {username};
+}
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    changeUsername,
+  }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
