@@ -9,6 +9,8 @@ import ActionBubble from '../components/actionBubble';
 import ActionWrapper from '../components/actionWrapper';
 import SendModal from "./modals/sendModal";
 
+import Delayed from '../components/delayed';
+
 import AppContext from '../components/AppContext';
 
 import updateData from '../components/functions/updateData';
@@ -49,7 +51,8 @@ export default function BankScreen() {
         }
       )
         .then((response) => response.json())
-        .then(res => setCardData(res));
+        .then(res => setCardData(res))
+        .then(() => console.log(cardData))
     } catch (error) {
       console.log('THERES A PROBLEM W/ GET CARD FETCH')
       throw error;
@@ -62,7 +65,7 @@ export default function BankScreen() {
         method: 'GET'
       })
         .then((response) => response.json())
-        .then(res => globalVar.setUserlist(res));
+        .then(res => setUserlist(res));
     } catch (error) {
       console.log('THERES A PROBLEM W/ GET USERLISTS FETCH')
       throw error;
@@ -123,7 +126,7 @@ export default function BankScreen() {
           onRefresh={onRefresh}
         />
       }>
-
+        <Delayed waitBeforeShow={200}>
         <View style={styles.cardWrapper}>
           {cardData.status == 200 ? <BankCard
               cardNumber={cardData.number}
@@ -138,6 +141,7 @@ export default function BankScreen() {
               }}/>
           }
         </View>
+        </Delayed>
 
         <ActionWrapper>
 
