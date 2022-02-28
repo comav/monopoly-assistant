@@ -104,27 +104,6 @@ function BankScreen(props) {
   return (
     <View style={styles.wrapper}>
       <StatusBar translucent backgroundColor="transparent"/>
-
-      {/* <Modal animationType='slide' visible={buyModal}>
-        <Button
-          title="close"
-          type='solid'
-          onPress={() => {
-            setBuyModalOpen(false);
-          }}
-        />
-        <BuyModal propData={propOwnageData} />
-      </Modal> */}
-      {/*<Modal animationType='slide' visible={tradeModal}>*/}
-      {/*  <Button*/}
-      {/*    title="close"*/}
-      {/*    type='solid'*/}
-      {/*    onPress={() => {*/}
-      {/*      setTradeModalOpen(false);*/}
-      {/*    }}*/}
-      {/*  />*/}
-      {/*  <TradeModal userlist={userlist} ownageData={propOwnageData} username={globalVar.username} />*/}
-      {/*</Modal>*/}
       <ScrollView refreshControl={
         <RefreshControl
           refreshing={refreshing}
@@ -147,10 +126,6 @@ function BankScreen(props) {
         </View>
         <ActionWrapper>
           <ActionBubble title={'Update'} actionIcon={'arrow-up-bold-circle'} colors={['#004F2D', '#0A8754']}/>
-          {/* <ActionBubble title={'Buy'} actionIcon={'home-plus'} colors={['#FF00AA', '#FF00AA']} action={() => {
-            setBuyModalOpen(true);
-            fetchData();
-          }} /> */}
           <ActionBubble title={'Trade'} actionIcon={'sync'} colors={['#ffaa00', '#FF00AA']} action={() => {
             setTradeModalOpen(true);
             fetchData();
