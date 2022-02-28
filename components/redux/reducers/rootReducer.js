@@ -57,9 +57,24 @@ const userlistReducer = (state = userlistState, action) => {
   }
 }
 
+const ownershipDataState = {
+  ownershipData: {}
+}
+
+const ownershipDataReducer = (state = ownershipDataState, action) => {
+  switch (action.type) {
+    case 'update_ownershipData':
+      const newState = action.payload;
+      return newState;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   username: usernameReducer,
   cardData: cardDataReducer,
   ip: ipReducer,
   userlist: userlistReducer,
+  ownershipData: ownershipDataReducer,
 })

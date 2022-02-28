@@ -2,11 +2,15 @@ import React, { useContext, useState } from 'react';
 import { View, Text, Image, StyleSheet, Modal, TextInput, SafeAreaView, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Button } from 'react-native-elements';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {changeUsername} from "../components/redux/actions/usernameAction";
+
 import {updateCardData} from "../components/redux/actions/cardDataAction";
+
 import {changeIP} from "../components/redux/actions/ipAction";
 import {updateUserlist} from "../components/redux/actions/userlistAction";
+import {updateOwnershipData} from "../components/redux/actions/ownershipDataAction";
 
 import SuggestionCard from '../components/suggestionCard';
 import WelcomeText from '../components/welcomeText';
@@ -22,23 +26,13 @@ function HomeScreen(props) {
 
   const [modalOpen, setModalOpen] = useState(true);
 
-  const createData = async () => {
-    try {
-      const response = fetch(`http://${globalVar.ip}:5502/newcard?owner=${globalVar.userName}`, {
-        method: 'GET'
-      })
-    } catch (error) {
-      console.log('THERES A PROBLEM W/ GET CARD FETCH')
-      throw error;
-    }
-  }
-
   async function changeCardDesign(designNum) {
     try {
-      const response = fetch(`http://${props.ip.ip}:5502/changedesign?user=${props.username.username}&design=${designNum}`, {
+      const response = fetch(`http://${globalVar.ip}:5502/changedesign?user=${globalVar.userName}&design=${designNum}`, {
         method: 'GET'
       })
         .then(console.log(globalVar.userName))
+        .then(fetchData());
     } catch (error) {
       throw error;
     }
@@ -64,10 +58,31 @@ function HomeScreen(props) {
       )
         .then((response) => response.json())
         .then(res => props.updateCardData(res))
-        .then(() => console.log('SUS', props))
     } catch (error) {
       console.log('THERES A PROBLEM W/ GET CARD FETCH')
       throw error;
+    }
+  }
+
+  async function fetchOwnershipData() {
+    try {
+      const response = await fetch(`http://${globalVar.ip}:5502/getpropertyownagedata`, {
+        method: 'GET'
+      })
+        .then((res) => res.json())
+        .then((res) => props.updateOwnershipData(res))
+        .then(console.log(props))
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  async function setConnectionData() {
+    try {
+      await AsyncStorage.setItem('username', globalVar.userName);
+      await AsyncStorage.setItem('ip', globalVar.ip);
+    } catch (e) {
+      console.log(e);
     }
   }
 
@@ -104,7 +119,10 @@ function HomeScreen(props) {
             style={styles.button}
             onPress={() => {
               setModalOpen(false);
+              setConnectionData();
               fetchData();
+              updateUserlist();
+              fetchOwnershipData();
             }}
           />
         </View>
@@ -158,15 +176,10 @@ function HomeScreen(props) {
         <Button
         onPress={() => updateUserlist()}
         title={'Update userlist'}
-        />
-        <Button
-          title={'Change redux value'}
-          onPress={() => {
-            props.changeUsername("Sussy Baka")
-            console.log("Username prop", props.username);
-            console.log(props)
-          }}
-        />
+        /><Button
+        onPress={() => fetchOwnershipData()}
+        title={'Update ownership data'}
+      />
       </SuggestionCard>
       <Text>More to come!</Text>
     </ScrollView>
@@ -222,6 +235,7 @@ const mapStateToProps = (state) => {
     username: state.username,
     ip: state.ip,
     userlist: state.userlist,
+    ownershipData: state.ownershipData,
   }
 }
 
@@ -231,6 +245,7 @@ const mapDispatchToProps = dispatch => (
     updateCardData,
     changeIP,
     updateUserlist,
+    updateOwnershipData,
   }, dispatch)
 );
 

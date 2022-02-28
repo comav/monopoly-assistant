@@ -1,44 +1,91 @@
 import 'react-native-gesture-handler';
-import React, { useState, useContext } from 'react';
-import { View, Text, StyleSheet, ScrollView, Modal, TouchableOpacity } from 'react-native';
-import CardFlip from 'react-native-card-flip';
+import React, {useState, useContext} from 'react';
+import {View, Text, StyleSheet, ScrollView, TouchableOpacity, Button} from 'react-native';
 import Card from '../components/card';
+import {BottomModal, ModalContent, SlideAnimation} from 'react-native-modals';
 
 import AppContext from '../components/AppContext';
 
 const cardData = require('../assets/cards.json');
 
-export default function CardsScreen() {
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+
+import {updateOwnershipData} from "../components/redux/actions/ownershipDataAction";
+
+function CardsScreen(props) {
   const globalVar = useContext(AppContext);
-  const [modalVisible, setModalVisible] = useState(true);
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalData, setModalData] = useState({
+    name: 'Loading...',
+    rent: 0,
+    color: '#000',
+    price: 0,
+    mortgage: 0,
+    upgradePrice: 0,
+    upgradeRent: [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    key: 0,
+    homes: 0
+  });
+  console.log(props)
   return (
-      <View>
-      <Modal visible={modalVisible}>
-        <CardFlip style={styles.cardContainer} ref={(cardDetails) => this.cardDetails = cardDetails} >
-          <TouchableOpacity style={styles.cardDetails} onPress={() => this.cardDetails.flip()} >
-            <View style={styles.header}>
-              <Text style={styles.headerText}>HEADER</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.cardDetails} onPress={() => this.cardDetails.flip()} ><Text>CD</Text></TouchableOpacity>
-        </CardFlip>
-      </Modal>
-      <ScrollView contentContainerStyle={styles.cardView}>
-        {cardData.cards.map(x => {
-          console.log(x);
-          return (
-            <Card
-              key={x.key}
-              color={x.color}
-              title={x.name}
-              price={x.price + '₴'}
-              style={styles.card}
-              homes={'home-remove'}
-            />
-          )
+    <View>
+      <BottomModal
+        visible={modalOpen}
+        onTouchOutside={() => setModalOpen(false)}
+        modalAnimation={new SlideAnimation({
+          slideFrom: 'bottom',
         })}
+        swipeDirection={'down'}
+        swipeThreshold={100}
+        onSwipeOut={() => {
+          setModalOpen(false)
+          console.log(modalData)
+        }}
+      >
+        <ModalContent>
+          <View style={{display: 'flex', alignItems: 'center'}}>
+            <View style={{width: 50, height: 5, backgroundColor: '#a1a1a1', borderRadius: 5}}></View>
+          </View>
+          <Text style={styles.headerText}>{modalData.name}</Text>
+          <View style={{marginTop: 10, marginLeft: 27, fontSize: 25,}}>
+            <Text>Ціна: {modalData.price}$</Text>
+            <Text>Застава: {modalData.mortgage}$</Text>
+            <Text>Ціна оновлення: {modalData.upgradePrice}</Text>
+            <Text>Ціна при оновленні: {modalData.upgradeRent[0]}, {modalData.upgradeRent[1]}, {modalData.upgradeRent[2]}, {modalData.upgradeRent[3]}, {modalData.upgradeRent[4]}</Text>
+          </View>
+        </ModalContent>
+      </BottomModal>
+      <ScrollView>
+        <Text style={styles.headerText}>Усі карти</Text>
+        <View style={styles.cardView}>
+          {cardData.cards.map(x => {
+            return (
+              <TouchableOpacity onPress={() => {
+                setModalData(x);
+                setModalOpen(true);
+              }} key={x.key}>
+                <Card
+                  key={x.key}
+                  color={x.color}
+                  title={x.name}
+                  price={x.price + '₴'}
+                  style={styles.card}
+                  homes={'home-remove'}
+                />
+              </TouchableOpacity>
+            )
+          })}
+        </View>
       </ScrollView>
-      </View>
+    </View>
   )
 }
 
@@ -48,7 +95,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 30,
+    marginTop: 10,
     alignSelf: 'center',
   },
   cardDetails: {
@@ -73,15 +120,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  header: {
-    height: 50,
-    width: '100%',
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    backgroundColor: 'red',
-  },
   headerText: {
-    fontSize: 28,
-    color: 'white',
+    fontSize: 40,
+    color: 'black',
+    marginLeft: 25,
+    marginTop: 30,
+    fontFamily: 'Roboto-Light'
   }
 })
+
+const mapStateToProps = (state) => {
+  return {
+    ownershipData: state.ownershipData
+  }
+}
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    updateOwnershipData
+  }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardsScreen);

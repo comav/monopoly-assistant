@@ -16,9 +16,6 @@ let procard_white = require('../assets/procard_logo_white.png');
 
 let cardDesign = [
   {
-    image: require("../assets/Infinity-1.9s-200px.gif")
-  },
-  {
     image: require('../assets/card_hamburger.png')
   },
   {

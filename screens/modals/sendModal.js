@@ -22,17 +22,6 @@ function SendModal(props) {
       const response = fetch(`http://${globalVar.ip}:5502/transaction?sender=${props.cardData.number}&receiver=${selectedUser}&amount=${moneyAmount}`, {
         method: 'GET'
       })
-        .then(() => {
-            if (moneyAmount === null) {
-              ToastAndroid.show(`Nothing has been done`, 1000)
-            } else {
-              ToastAndroid.show(`Sent ${moneyAmount} UAH`, 1000)
-            }
-          }
-        )
-        .then(() => {
-          onChangeMoneyAmount(null)
-        })
         .then(() => updateData())
     } catch (e) {
       throw e;
@@ -50,6 +39,7 @@ function SendModal(props) {
       )
         .then((response) => response.json())
         .then(res => props.updateCardData(res))
+        .then(res =>console.log('res', res))
         .then(() => console.log('SUS', props))
     } catch (error) {
       console.log('THERES A PROBLEM W/ GET CARD FETCH')
