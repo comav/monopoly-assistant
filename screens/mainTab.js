@@ -170,6 +170,9 @@ function HomeScreen(props) {
           <TouchableOpacity onPress={() => changeCardDesign(9)}>
             <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_waves.png')} />
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => changeCardDesign(10)}>
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_city_animated.gif')} />
+          </TouchableOpacity>
         </ScrollView>
       </SuggestionCard>
       <SuggestionCard suggestion={'Debug panel'}>

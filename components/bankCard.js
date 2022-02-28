@@ -44,6 +44,9 @@ let cardDesign = [
   },
   {
     image: require('../assets/card_waves.png')
+  },
+  {
+    image: require('../assets/card_city_animated.gif')
   }
 ]
 
