@@ -48,7 +48,6 @@ let cardDesign = [
 ]
 
 function BankCard(props) {
-  //setTimeout(() => console.log("NANI?????", props.cardData), 500)
   return (
     <View style={styles.wrapper}>
       <ImageBackground source={cardDesign[props.cardData.design].image} style={styles.card} imageStyle={{ borderRadius: 15 }} resizeMode="stretch">

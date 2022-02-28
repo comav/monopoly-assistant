@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, {useState, useContext} from 'react';
-import {View, Text, StyleSheet, ScrollView, TouchableOpacity, Button} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, TouchableOpacity, Button, Image} from 'react-native';
 import Card from '../components/card';
 import {BottomModal, ModalContent, SlideAnimation} from 'react-native-modals';
 
@@ -44,7 +44,7 @@ function CardsScreen(props) {
           slideFrom: 'bottom',
         })}
         swipeDirection={'down'}
-        swipeThreshold={100}
+        swipeThreshold={200}
         onSwipeOut={() => {
           setModalOpen(false)
           console.log(modalData)
@@ -54,12 +54,13 @@ function CardsScreen(props) {
           <View style={{display: 'flex', alignItems: 'center'}}>
             <View style={{width: 50, height: 5, backgroundColor: '#a1a1a1', borderRadius: 5}}></View>
           </View>
-          <Text style={styles.headerText}>{modalData.name}</Text>
+          <Text style={styles.modalHeaderText}>{modalData.name}</Text>
           <View style={{marginTop: 10, marginLeft: 27, fontSize: 25,}}>
-            <Text>Ціна: {modalData.price}$</Text>
-            <Text>Застава: {modalData.mortgage}$</Text>
-            <Text>Ціна оновлення: {modalData.upgradePrice}</Text>
-            <Text>Ціна при оновленні: {modalData.upgradeRent[0]}, {modalData.upgradeRent[1]}, {modalData.upgradeRent[2]}, {modalData.upgradeRent[3]}, {modalData.upgradeRent[4]}</Text>
+            <Image source={require('../assets/amogus.jpg')} style={{height: 300, width: 300, marginBottom: 10}} />
+            <Text style={styles.modalText}>Ціна: {modalData.price}$</Text>
+            <Text style={styles.modalText}>Застава: {modalData.mortgage}$</Text>
+            <Text style={styles.modalText}>Ціна оновлення: {modalData.upgradePrice}</Text>
+            <Text style={styles.modalText}>Ціна при оновленні: {modalData.upgradeRent[0]}, {modalData.upgradeRent[1]}, {modalData.upgradeRent[2]}, {modalData.upgradeRent[3]}, {modalData.upgradeRent[4]}</Text>
           </View>
         </ModalContent>
       </BottomModal>
@@ -126,6 +127,16 @@ const styles = StyleSheet.create({
     marginLeft: 25,
     marginTop: 30,
     fontFamily: 'Roboto-Light'
+  },
+  modalHeaderText: {
+    fontSize: 40,
+    color: 'black',
+    marginLeft: 25,
+    marginTop: 10,
+    fontFamily: 'Roboto-Light'
+  },
+  modalText: {
+    fontSize: 15,
   }
 })
 

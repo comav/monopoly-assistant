@@ -138,7 +138,7 @@ function BankScreen(props) {
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
       >
-        <Text style={{fontSize: 29, marginLeft: 10, fontWeight: '100'}}>Send money</Text>
+        <Text style={{fontSize: 30, marginLeft: 10, fontWeight: '100', fontFamily: 'Roboto-Light'}}>Send money</Text>
         <SendModal cardNumber={cardData.number} />
       </BottomSheet>
     </View>
