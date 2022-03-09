@@ -29,7 +29,7 @@ const store = createStore(rootReducer, applyMiddleware(thunk));
 export default function App() {
   //global const goes here
   const [userName, setUserName] = useState('Player');
-  const [ip, setIp] = useState('192.168.0.109');
+  const [ip, setIp] = useState('192.168.0.');
 
   //global object
   const globalVar = {

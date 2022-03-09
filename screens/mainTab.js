@@ -15,10 +15,11 @@ import {updateOwnershipData} from "../components/redux/actions/ownershipDataActi
 import SuggestionCard from '../components/suggestionCard';
 import WelcomeText from '../components/welcomeText';
 import AppContext from '../components/AppContext';
-import PropertyCard from '../components/card';
+// import PropertyCard from '../components/card';
 
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import { StatusBar } from 'expo-status-bar';
 
 function HomeScreen(props) {
 
@@ -88,6 +89,7 @@ function HomeScreen(props) {
 
   return (
     <ScrollView contentContainerStyle={styles.mainWrapper}>
+      <StatusBar translucent />
       <Modal animationType={'slide'} visible={modalOpen}>
         <View style={styles.modal}>
           <Text style={styles.modalText}>Будь ласка, введіть ваш нік</Text>
@@ -129,7 +131,7 @@ function HomeScreen(props) {
       </Modal>
 
       <WelcomeText userName={globalVar.userName} onPress={() => setModalOpen(true)} />
-      <SuggestionCard suggestion={'Review your property'}>
+      {/* <SuggestionCard suggestion={'Review your property'}>
         <ScrollView horizontal={true} style={styles.scrollView} showsHorizontalScrollIndicator={false}>
           <PropertyCard homes={'home-remove'} color={'red'}/>
           <PropertyCard homes={'home-floor-1'} color={'green'}/>
@@ -137,8 +139,8 @@ function HomeScreen(props) {
           <PropertyCard homes={'home-floor-3'} color={'blue'}/>
           <PropertyCard homes={'home-floor-l'} color={'#00dbff'}/>
         </ScrollView>
-      </SuggestionCard>
-      <SuggestionCard suggestion={'Change your card design'}>
+      </SuggestionCard> */}
+      <SuggestionCard suggestion={'Змініть дизайн вашої карти'}>
         <ScrollView horizontal={true} style={styles.scrollCardView} showsHorizontalScrollIndicator={false}>
           <TouchableOpacity onPress={() => changeCardDesign(0)}>
             <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_hamburger.png')} />
@@ -170,12 +172,12 @@ function HomeScreen(props) {
           <TouchableOpacity onPress={() => changeCardDesign(9)}>
             <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_waves.png')} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => changeCardDesign(10)}>
+          {/* <TouchableOpacity onPress={() => changeCardDesign(10)}>
             <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_city_animated.gif')} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </ScrollView>
       </SuggestionCard>
-      <SuggestionCard suggestion={'Debug panel'}>
+      {/* <SuggestionCard suggestion={'Debug panel'}>
         <Button
         onPress={() => updateUserlist()}
         title={'Update userlist'}
@@ -183,8 +185,8 @@ function HomeScreen(props) {
         onPress={() => fetchOwnershipData()}
         title={'Update ownership data'}
       />
-      </SuggestionCard>
-      <Text>More to come!</Text>
+      </SuggestionCard> */}
+      <Text>Далі - більше!</Text>
     </ScrollView>
   )
 }
