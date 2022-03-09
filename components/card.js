@@ -20,7 +20,7 @@ export default function Card(props) {
       <View style={styles.cardBody}>
         <MaterialCommunityIcons style={styles.homeIcon} name={props.homes} size={78} />
         <View style={styles.feeWrapper}>
-          {props.isOwned ? <Text style={styles.fee}>Fee: {props.fee}₴</Text> : <Text style={styles.fee}>Price: {props.price}</Text>}
+          {props.isOwned ? <Text style={styles.fee}>Рента: {props.fee}₴</Text> : <Text style={styles.fee}>Ціна: {props.price}</Text>}
         </View>
       </View>
     </View>

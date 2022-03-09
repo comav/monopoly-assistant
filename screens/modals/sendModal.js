@@ -50,7 +50,7 @@ function SendModal(props) {
   return (
     <View style={styles.container}>
       <View style={styles.pickerWrapper}>
-        <Text style={{fontSize: 16}}>Send to:</Text>
+        <Text style={{fontSize: 16}}>Отримувач:</Text>
         <Picker
           selectedValue={selectedUser}
           onValueChange={(itemValue, itemIndex) => {
@@ -61,7 +61,7 @@ function SendModal(props) {
           {props.userlist?.map((item) => {
             if (item.label === globalVar.userName) {
               return (
-                <Picker.Item label={"Choose one..."} value={"do_nothing"} key={"Current_user"}/>
+                <Picker.Item label={"Виберіть..."} value={"do_nothing"} key={"Current_user"}/>
               )
             } else {
               return (
@@ -72,10 +72,10 @@ function SendModal(props) {
         </Picker>
       </View>
       <View style={styles.pickerWrapper}>
-        <Text style={{fontSize: 16}}>Money amount:</Text>
+        <Text style={{fontSize: 16}}>Сума:</Text>
         <TextInput
           keyboardType={'numeric'}
-          placeholder={'Amount...'}
+          placeholder={'Введіть...'}
           style={styles.textInput}
           onChangeText={(amount) => onChangeMoneyAmount(amount)}
           value={moneyAmount}
@@ -83,7 +83,7 @@ function SendModal(props) {
       </View>
       <View style={styles.buttonWrapper}>
         <TouchableOpacity style={styles.button} onPress={() => sendPaymentRequest()}>
-          <Text style={{fontSize: 24}}>SEND</Text>
+          <Text style={{fontSize: 24}}>ГО</Text>
           <MaterialCommunityIcons name={'send'} style={{fontSize: 24, marginLeft: 5}}/>
         </TouchableOpacity>
       </View>

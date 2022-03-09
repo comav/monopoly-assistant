@@ -129,6 +129,7 @@ function BankScreen(props) {
           }
         </View>
         {/* <CardHistory /> */}
+        <Text style={{marginTop: 100, textAlign: 'center'}}>Тут щось буде :3</Text>
       </ScrollView>
       <BottomSheet
         ref={bottomSheetRef}
@@ -136,7 +137,7 @@ function BankScreen(props) {
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
       >
-        <Text style={{fontSize: 30, marginLeft: 10, fontWeight: '100', fontFamily: 'Roboto-Light'}}>Send money</Text>
+        <Text style={{fontSize: 30, marginLeft: 10, fontWeight: '100', fontFamily: 'Roboto-Light'}}>Надіслати гроші</Text>
         <SendModal cardNumber={cardData.number} />
       </BottomSheet>
     </View>

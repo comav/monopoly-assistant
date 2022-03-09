@@ -3,7 +3,7 @@ import { Text, StyleSheet } from 'react-native';
 
 export default React.memo(function WelcomeText(props) {
     return (
-        <Text style={styles.text} onPress={props.onPress}>Welcome back, {props.userName}</Text>
+        <Text style={styles.text} onPress={props.onPress}>Привіт, {props.userName}</Text>
     )
 })
 

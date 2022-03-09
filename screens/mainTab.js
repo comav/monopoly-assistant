@@ -140,7 +140,7 @@ function HomeScreen(props) {
           <PropertyCard homes={'home-floor-l'} color={'#00dbff'}/>
         </ScrollView>
       </SuggestionCard> */}
-      <SuggestionCard suggestion={'Change your card design'}>
+      <SuggestionCard suggestion={'Змініть дизайн вашої карти'}>
         <ScrollView horizontal={true} style={styles.scrollCardView} showsHorizontalScrollIndicator={false}>
           <TouchableOpacity onPress={() => changeCardDesign(0)}>
             <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_hamburger.png')} />
@@ -186,7 +186,7 @@ function HomeScreen(props) {
         title={'Update ownership data'}
       />
       </SuggestionCard> */}
-      <Text>More to come!</Text>
+      <Text>Далі - більше!</Text>
     </ScrollView>
   )
 }
