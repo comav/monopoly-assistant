@@ -1,17 +1,18 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { TextPropTypes } from 'react-native';
 import { View, Text, Image, StyleSheet, ScrollView, ImageBackground } from 'react-native';
 import AppContext from '../components/AppContext';
 
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
-import {updateCardData} from "./redux/actions/cardDataAction";
-import {changeUsername} from "./redux/actions/usernameAction";
-import {changeIP} from "./redux/actions/ipAction";
+import { updateCardData } from "./redux/actions/cardDataAction";
+import { changeUsername } from "./redux/actions/usernameAction";
+import { changeIP } from "./redux/actions/ipAction";
 
 let shiza = require('../assets/shiza_logo.png');
 let procard = require('../assets/procard_logo.png');
+let loadingNet = require('../assets/loading_net.gif');
 let procard_white = require('../assets/procard_logo_white.png');
 
 let cardDesign = [
@@ -32,7 +33,7 @@ let cardDesign = [
   },
   {
     image: require('../assets/card_triangles.png')
-  }, 
+  },
   {
     image: require('../assets/card_zebra.png')
   },
@@ -58,7 +59,7 @@ function BankCard(props) {
         <View style={styles.cardBottomWrapper}>
           <Text style={styles.balance}>{props.balance + ' ₴'}</Text>
           <View style={styles.networkWrapper}>
-            <Image source={props.network == "ProCard" ? props.cardData.design == 2 ? procard_white : procard : shiza} resizeMode='contain' style={styles.network} />
+            <Image source={props.network == 'ProCard' ? procard : props.network == 'ШИZA' ? shiza : loadingNet} resizeMode='contain' style={styles.network} />
           </View>
         </View>
       </ImageBackground>

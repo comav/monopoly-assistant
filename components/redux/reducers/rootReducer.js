@@ -16,7 +16,12 @@ const usernameReducer = (state = usernameState, action) => {
 }
 
 const cardDataState = {
-  cardData: {}
+  cardData: {
+    number: '0000 0000 0000 0000',
+    network: "loadingNet",
+    design: 0,
+    balance: 0
+  }
 }
 
 const cardDataReducer = (state = cardDataState, action) => {

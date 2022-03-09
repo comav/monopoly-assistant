@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   suggText: {
     fontWeight: '100',
     fontSize: 24,
-    margin: 5,
+    margin: 10,
   },
   childrenWrapper: {
     margin: 5,
