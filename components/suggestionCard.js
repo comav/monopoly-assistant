@@ -14,7 +14,7 @@ export default function SuggestionCard(props) {
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: '#e8e8e8',
+    backgroundColor: '#fff',
     width: '96%',
     borderRadius: 10,
     shadowColor: "#000",
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   suggText: {
     fontWeight: '100',
     fontSize: 24,
-    margin: 5,
+    margin: 10,
   },
   childrenWrapper: {
     margin: 5,

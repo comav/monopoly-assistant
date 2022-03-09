@@ -6,8 +6,8 @@
       "color": "#92623a",
       "price": 200,
       "mortgage": 100,
-      "upgrade-price": 100,
-      "upgrade-rent": [
+      "upgradePrice": 100,
+      "upgradeRent": [
         70,
         200,
         550,
@@ -23,8 +23,8 @@
       "color": "#92623a",
       "price": 200,
       "mortgage": 100,
-      "upgrade-price": 100,
-      "upgrade-rent": [
+      "upgradePrice": 100,
+      "upgradeRent": [
         70,
         200,
         550,
@@ -40,8 +40,8 @@
       "color": "#92623a",
       "price": 200,
       "mortgage": 100,
-      "upgrade-price": 100,
-      "upgrade-rent": [
+      "upgradePrice": 100,
+      "upgradeRent": [
         80,
         220,
         600,
@@ -57,8 +57,8 @@
       "color": "#ffda00",
       "price": 60,
       "mortgage": 30,
-      "upgrade-price": 50,
-      "upgrade-rent": [
+      "upgradePrice": 50,
+      "upgradeRent": [
         30,
         40,
         110,
@@ -74,8 +74,8 @@
       "color": "#ffda00",
       "price": 50,
       "mortgage": 20,
-      "upgrade-price": 50,
-      "upgrade-rent": [
+      "upgradePrice": 50,
+      "upgradeRent": [
         20,
         30,
         100,
@@ -91,8 +91,8 @@
       "color": "red",
       "price": 150,
       "mortgage": 70,
-      "upgrade-price": 100,
-      "upgrade-rent": [
+      "upgradePrice": 100,
+      "upgradeRent": [
         50,
         150,
         450,
@@ -108,8 +108,8 @@
       "color": "red",
       "price": 150,
       "mortgage": 70,
-      "upgrade-price": 100,
-      "upgrade-rent": [
+      "upgradePrice": 100,
+      "upgradeRent": [
         50,
         150,
         450,
@@ -125,8 +125,8 @@
       "color": "red",
       "price": 150,
       "mortgage": 90,
-      "upgrade-price": 100,
-      "upgrade-rent": [
+      "upgradePrice": 100,
+      "upgradeRent": [
         60,
         180,
         500,
@@ -142,8 +142,8 @@
       "color": "black",
       "price": 150,
       "mortgage": 90,
-      "upgrade-price": 100,
-      "upgrade-rent": [
+      "upgradePrice": 100,
+      "upgradeRent": [
         60,
         180,
         500,
@@ -151,6 +151,157 @@
         900
       ],
       "key": "4",
+      "homes": 0
+    },
+    {
+      "name": "Базар х4",
+      "rent": 25,
+      "color": "orange",
+      "price": 200,
+      "mortgage": 100,
+      "upgradePrice": 100,
+      "upgradeRent": [
+        50,
+        150,
+        200
+      ],
+      "key": "4.1",
+      "homes": 0
+    },
+    {
+      "name": "Яблуко",
+      "rent": 10,
+      "color": "green",
+      "price": 100,
+      "mortgage": 50,
+      "upgradePrice": 50,
+      "upgradeRent": [
+        40,
+        90,
+        270,
+        400,
+        550
+      ],
+      "key": "5.1",
+      "homes": 0
+    },
+    {
+      "name": "Вишня",
+      "rent": 10,
+      "color": "green",
+      "price": 100,
+      "mortgage": 50,
+      "upgradePrice": 50,
+      "upgradeRent": [
+        40,
+        90,
+        270,
+        400,
+        550
+      ],
+      "key": "5.2",
+      "homes": 0
+    },
+    {
+      "name": "Яблуко",
+      "rent": 20,
+      "color": "green",
+      "price": 120,
+      "mortgage": 60,
+      "upgradePrice": 50,
+      "upgradeRent": [
+        50,
+        100,
+        300,
+        450,
+        600
+      ],
+      "key": "5.3",
+      "homes": 0
+    },
+    {
+      "name": "Ставок",
+      "rent": 30,
+      "color": "blue",
+      "price": 220,
+      "mortgage": 110,
+      "upgradePrice": 150,
+      "upgradeRent": [
+        90,
+        250,
+        700,
+        870,
+        1050
+      ],
+      "key": "6.1",
+      "homes": 0
+    },
+    {
+      "name": "Магазин",
+      "rent": 30,
+      "color": "blue",
+      "price": 220,
+      "mortgage": 110,
+      "upgradePrice": 150,
+      "upgradeRent": [
+        90,
+        250,
+        700,
+        870,
+        1050
+      ],
+      "key": "6.2",
+      "homes": 0
+    },
+    {
+      "name": "Техніка",
+      "rent": 40,
+      "color": "blue",
+      "price": 240,
+      "mortgage": 120,
+      "upgradePrice": 150,
+      "upgradeRent": [
+        100,
+        300,
+        750,
+        920,
+        1100
+      ],
+      "key": "6.3",
+      "homes": 0
+    },
+    {
+      "name": "Молокозавод",
+      "rent": 40,
+      "color": "teal",
+      "price": 280,
+      "mortgage": 140,
+      "upgradePrice": 150,
+      "upgradeRent": [
+        110,
+        330,
+        800,
+        970,
+        1150
+      ],
+      "key": "7.1",
+      "homes": 0
+    },
+    {
+      "name": "Цукрозавод",
+      "rent": 40,
+      "color": "teal",
+      "price": 280,
+      "mortgage": 140,
+      "upgradePrice": 150,
+      "upgradeRent": [
+        110,
+        330,
+        800,
+        970,
+        1150
+      ],
+      "key": "7.2",
       "homes": 0
     }
   ]

@@ -9,13 +9,22 @@ import ActionBubble from '../components/actionBubble';
 import ActionWrapper from '../components/actionWrapper';
 import SendModal from "./modals/sendModal";
 
+import Delayed from '../components/delayed';
+
 import AppContext from '../components/AppContext';
 
-import updateData from '../components/functions/updateData';
+import {updateCardData} from "../components/redux/actions/cardDataAction";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {changeUsername} from "../components/redux/actions/usernameAction";
+import {updateUserlist} from "../components/redux/actions/userlistAction";
+import CardHistory from '../components/cardHistory';
 
-export default function BankScreen() {
+function BankScreen(props) {
 
   const globalVar = useContext(AppContext);
+
+  //console.log(globalVar);
 
   const [cardData, setCardData] = useState({});
   const [propOwnageData, setPropOwnageData] = useState({});
@@ -23,6 +32,7 @@ export default function BankScreen() {
   const [buyModal, setBuyModalOpen] = useState(false);
   const [tradeModal, setTradeModalOpen] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [isCardDataLoaded, setCardDataLoaded] = useState(false);
 
   const bottomSheetRef = useRef(null);
   const snapPoints = useMemo(() => ['12%', '68%'], []);
@@ -33,9 +43,8 @@ export default function BankScreen() {
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     fetchData();
-    fetchCardOwnageData();
+    //fetchCardOwnageData();
     wait(1000).then(() => setRefreshing(false));
-    console.table(globalVar.cardOwnageData);
   }, [])
 
   const wait = (timeout) => {
@@ -49,9 +58,11 @@ export default function BankScreen() {
         }
       )
         .then((response) => response.json())
-        .then(res => setCardData(res));
+        .then(res => props.updateCardData(res))
+        .then(() => console.log('SUS', props))
     } catch (error) {
-      console.log('THERES A PROBLEM W/ GET CARD FETCH')
+      console.log('THERES A PROBLEM W/ GET CARD FETCH');
+      setCardDataLoaded(false);
       throw error;
     }
   }
@@ -62,7 +73,7 @@ export default function BankScreen() {
         method: 'GET'
       })
         .then((response) => response.json())
-        .then(res => globalVar.setUserlist(res));
+        .then(res => props.setUserlist(res));
     } catch (error) {
       console.log('THERES A PROBLEM W/ GET USERLISTS FETCH')
       throw error;
@@ -89,69 +100,36 @@ export default function BankScreen() {
     fetchLists();
   }, [])
 
-  // console.log(cardData);
-
-  console.log(propOwnageData);
+  //console.log(propOwnageData);
 
   return (
     <View style={styles.wrapper}>
       <StatusBar translucent backgroundColor="transparent"/>
-
-      {/* <Modal animationType='slide' visible={buyModal}>
-        <Button
-          title="close"
-          type='solid'
-          onPress={() => {
-            setBuyModalOpen(false);
-          }}
-        />
-        <BuyModal propData={propOwnageData} />
-      </Modal> */}
-      {/*<Modal animationType='slide' visible={tradeModal}>*/}
-      {/*  <Button*/}
-      {/*    title="close"*/}
-      {/*    type='solid'*/}
-      {/*    onPress={() => {*/}
-      {/*      setTradeModalOpen(false);*/}
-      {/*    }}*/}
-      {/*  />*/}
-      {/*  <TradeModal userlist={userlist} ownageData={propOwnageData} username={globalVar.username} />*/}
-      {/*</Modal>*/}
-      <ScrollView refreshControl={
+      <ScrollView nestedScrollEnabled={true} refreshControl={
         <RefreshControl
           refreshing={refreshing}
           onRefresh={onRefresh}
         />
       }>
-
         <View style={styles.cardWrapper}>
-          {cardData.status == 200 ? <BankCard
-              cardNumber={cardData.number}
-              network={cardData.network}
-              design={cardData.design}
-              balance={cardData.balance}/>
-            :
+          {props.cardData.number == '0000 0000 0000 0000' ? 
             <EmptyCard
               createCard={true}
               onPress={() => {
                 fetchData();
-              }}/>
+              }}
+            />
+            :
+            <BankCard
+              cardNumber={props.cardData.number}
+              network={props.cardData.network}
+              design={props.cardData.design}
+              balance={props.cardData.balance}
+            />
           }
         </View>
-
-        <ActionWrapper>
-
-          <ActionBubble title={'Update'} actionIcon={'arrow-up-bold-circle'} colors={['#004F2D', '#0A8754']}/>
-          {/* <ActionBubble title={'Buy'} actionIcon={'home-plus'} colors={['#FF00AA', '#FF00AA']} action={() => {
-            setBuyModalOpen(true);
-            fetchData();
-          }} /> */}
-          <ActionBubble title={'Trade'} actionIcon={'sync'} colors={['#ffaa00', '#FF00AA']} action={() => {
-            setTradeModalOpen(true);
-            fetchData();
-          }}/>
-        </ActionWrapper>
-
+        {/* <CardHistory /> */}
+        <Text style={{marginTop: 100, textAlign: 'center'}}>Тут щось буде :3</Text>
       </ScrollView>
       <BottomSheet
         ref={bottomSheetRef}
@@ -159,7 +137,7 @@ export default function BankScreen() {
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
       >
-        <Text style={{fontSize: 29, marginLeft: 10, fontWeight: '100'}}>Send money</Text>
+        <Text style={{fontSize: 30, marginLeft: 10, fontWeight: '100', fontFamily: 'Roboto-Light'}}>Надіслати гроші</Text>
         <SendModal cardNumber={cardData.number} />
       </BottomSheet>
     </View>
@@ -203,3 +181,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   }
 })
+
+const mapStateToProps = (state) => {
+  return {
+    cardData: state.cardData,
+    userlist: state.userlist,
+  }
+}
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    updateCardData,
+    updateUserlist,
+  }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(BankScreen);

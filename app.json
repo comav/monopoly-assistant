@@ -24,7 +24,7 @@
         "foregroundImage": "./assets/1x/foreground.png",
         "backgroundColor": "#15616d"
       },
-      "package": "com.comav.monopolyassistant"
+      "package": "com.pfxel.monopolyassistant"
     },
     "web": {
       "favicon": "./assets/favicon.png"

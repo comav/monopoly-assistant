@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TextPropTypes } from 'react-native';
 import { View, Text, Image, StyleSheet, ScrollView, ImageBackground } from 'react-native';
 import AppContext from '../components/AppContext';
 
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+
+import { updateCardData } from "./redux/actions/cardDataAction";
+import { changeUsername } from "./redux/actions/usernameAction";
+import { changeIP } from "./redux/actions/ipAction";
+
 let shiza = require('../assets/shiza_logo.png');
 let procard = require('../assets/procard_logo.png');
+let loadingNet = require('../assets/loading_net.gif');
 let procard_white = require('../assets/procard_logo_white.png');
 
 let cardDesign = [
@@ -25,7 +33,7 @@ let cardDesign = [
   },
   {
     image: require('../assets/card_triangles.png')
-  }, 
+  },
   {
     image: require('../assets/card_zebra.png')
   },
@@ -37,21 +45,21 @@ let cardDesign = [
   },
   {
     image: require('../assets/card_waves.png')
+  },
+  {
+    image: require('../assets/card_city_animated.gif')
   }
 ]
 
-export default function BankCard(props) {
-
-  // console.warn(props);
-
+function BankCard(props) {
   return (
     <View style={styles.wrapper}>
-      <ImageBackground source={cardDesign[props.design].image} style={styles.card} imageStyle={{ borderRadius: 15 }} resizeMode="stretch">
+      <ImageBackground source={cardDesign[props.cardData.design].image} style={styles.card} imageStyle={{ borderRadius: 15 }} resizeMode="stretch">
         <Text style={styles.number}>{props.cardNumber}</Text>
         <View style={styles.cardBottomWrapper}>
           <Text style={styles.balance}>{props.balance + ' ₴'}</Text>
           <View style={styles.networkWrapper}>
-            <Image source={props.network == "ProCard" ? props.design == 2 ? procard_white : procard : shiza} resizeMode='contain' style={styles.network} />
+            <Image source={props.network == 'ProCard' ? procard : props.network == 'ШИZA' ? shiza : loadingNet} resizeMode='contain' style={styles.network} />
           </View>
         </View>
       </ImageBackground>
@@ -98,3 +106,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 })
+
+const mapStateToProps = (state) => {
+  return {
+    cardData: state.cardData,
+  }
+}
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    updateCardData,
+  }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(BankCard);

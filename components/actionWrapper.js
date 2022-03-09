@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   itemsWrapper: {
     width: '96%',
-    backgroundColor: '#e8e8e8',
+    backgroundColor: '#fff',
     borderRadius: 10,
     padding: 10,
   },
