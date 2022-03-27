@@ -1,21 +1,20 @@
 import React, { useContext } from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import AppContext from '../components/AppContext';
 
 export default function EmptyBankCard(props) {
 
-  const globalVar = useContext(AppContext);
+  // const globalVar = useContext(AppContext);
 
-  const createData = async () => {
-    try {
-      const response = fetch(`https://${globalVar.ip}:5502/newcard?owner=${globalVar.userName}`, {
-        method: 'GET'
-      })
-    } catch (error) {
-      console.log('THERES A PROBLEM W/ NEW CARD FETCH')
-      throw error;
-    }
-  }
+  // const createData = async () => {
+  //   try {
+  //     const response = fetch(`https://${globalVar.ip}:5502/newcard?owner=${globalVar.userName}`, {
+  //       method: 'GET'
+  //     })
+  //   } catch (error) {
+  //     console.log('THERES A PROBLEM W/ NEW CARD FETCH')
+  //     throw error;
+  //   }
+  // }
 
   if (props.createCard) {
     return (
