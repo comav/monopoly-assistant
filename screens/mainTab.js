@@ -69,7 +69,7 @@ export default function HomeScreen() {
   return (
     <ScrollView contentContainerStyle={styles.mainWrapper}>
       <StatusBar translucent />
-      <WelcomeText userName={username} />
+      <WelcomeText username={username} />
       { //TODO Implement property managing system
       /* <SuggestionCard suggestion={'Review your property'}>
         <ScrollView horizontal={true} style={styles.scrollView} showsHorizontalScrollIndicator={false}>

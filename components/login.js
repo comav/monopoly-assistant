@@ -1,11 +1,18 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Button, Text, TextInput, SafeAreaView } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
+import { TextInput, Button } from "react-native-paper";
+
+import { Modal, ModalTitle } from "react-native-modals";
 
 import { useSelector, useDispatch } from "react-redux";
 
 import { CHANGE_IP, CHANGE_USERNAME } from "../redux/consts";
 
-export default function LoginContents({navigation}) {
+import ErrorModal from "../screens/modals/loginErrorModal";
+import { ModalFooter } from "react-native-modals";
+import { ModalButton } from "react-native-modals";
+
+export default function LoginContents({ navigation }) {
 
   const username = useSelector((state) => state.username);
   const ip = useSelector((state) => state.ip);
@@ -13,13 +20,22 @@ export default function LoginContents({navigation}) {
 
   const dispatch = useDispatch();
 
-  const [usernameEditable, setUsernameEditable] = useState('Player');
-  const [ipEditable, setIpEditable] = useState('192.168.0.100');
+  const [usernameEditable, setUsernameEditable] = useState('');
+  const [ipEditable, setIpEditable] = useState('');
+
+  const [errorVisible, setErrorVisible] = useState(false);
+
+  const ipRegex = /\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b/;
 
   function submitCreds() {
-    dispatch({ type: CHANGE_USERNAME, payload: usernameEditable});
-    dispatch({ type: CHANGE_IP, payload: ipEditable});
-    fetchData();
+    if (ipRegex.test(ipEditable) === true && usernameEditable !== '') {
+      dispatch({ type: CHANGE_USERNAME, payload: usernameEditable });
+      dispatch({ type: CHANGE_IP, payload: ipEditable });
+      fetchData();
+      navigation.navigate('Tabs-nested')
+    } else {
+      setErrorVisible(true);
+    }
   }
 
   async function fetchData() {
@@ -29,7 +45,7 @@ export default function LoginContents({navigation}) {
       }
       )
         .then((response) => response.json())
-        .then(res => dispatch({type: UPDATE_CARD_DATA, payload: res}))
+        .then(res => dispatch({ type: UPDATE_CARD_DATA, payload: res }))
         .then(console.log(cardData));
     } catch (error) {
       console.log('THERES A PROBLEM W/ GET CARD FETCH')
@@ -38,64 +54,74 @@ export default function LoginContents({navigation}) {
   }
 
   return (
-    <View style={styles.modal}>
-          <Text style={styles.modalText}>Будь ласка, введіть ваш нік</Text>
-          <SafeAreaView style={styles.safeareaview}>
-            <TextInput
-              style={styles.input}
-              keyboardType={'default'}
-              placeholder={'Твій нік...'}
-              defaultValue={username.username}
-              onChangeText={(username) => setUsernameEditable(username)}
-            />
-          </SafeAreaView>
-          <Text style={styles.modalTextSecond}>Будь ласка, введіть IP</Text>
-          <SafeAreaView style={styles.safeareaview}>
-            <TextInput
-              style={styles.input}
-              keyboardType={'number-pad'}
-              placeholder={'IP...'}
-              defaultValue={ip.ip}
-              onChangeText={(ip) => setIpEditable(ip)}
-            />
-          </SafeAreaView>
-          <Button
-            title="OK"
-            type="solid"
-            style={styles.button}
-            onPress={() => {
-              submitCreds();
-              navigation.navigate('Tabs-nested');
-            }}
+    <View style={styles.wrapper}>
+      <Modal
+      visible={errorVisible}
+      modalTitle={<ModalTitle title={'Warning!'} />}
+      swipeDirection={['up', 'down']}
+      swipeThreshold={200}
+      onSwipeOut={() => setErrorVisible(false)}
+      footer={
+        <ModalFooter>
+          <ModalButton
+            text="OK"
+            onPress={() => setErrorVisible(false)}
           />
-        </View>
+        </ModalFooter>
+      }
+    >
+      <ErrorModal />
+    </Modal>
+      <View style={styles.inputWrapper}>
+        <Text style={styles.textSecond}>Будь ласка, введіть дані</Text>
+        <TextInput
+          mode={'outlined'}
+          label={'Username'}
+          onChangeText={text => setUsernameEditable(text)}
+          left={<TextInput.Icon name="at" />}
+        />
+        <TextInput
+          mode={'outlined'}
+          label={'IP'}
+          keyboardType={'number-pad'}
+          onChangeText={text => setIpEditable(text)}
+          left={<TextInput.Icon name="server" />}
+        />
+      </View>
+      <Button
+        mode={'contained'}
+        style={styles.button}
+        onPress={() => {
+          submitCreds();
+        }}
+      >
+      OK 
+      </Button>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  modal: {
+  wrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  modalText: {
-    marginTop: '40%',
-    fontSize: 25,
-  },
-  modalTextSecond: {
+  textSecond: {
     marginTop: 10,
     fontSize: 25,
+    textAlign: "center",
+    marginBottom: 20,
+    fontFamily: 'Roboto-Light'
   },
-  safeareaview: {
+  inputWrapper: {
     width: 300,
+    marginTop: '80%'
   },
   input: {
-    height: 50,
     fontSize: 20,
-    borderColor: '#000',
-    borderWidth: 1,
-    borderRadius: 4,
-    marginTop: 10,
-    padding: 10,
   },
+  button: {
+    marginTop: 20,
+  }
 })

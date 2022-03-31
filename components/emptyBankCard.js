@@ -1,25 +1,29 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+
+import { useSelector } from 'react-redux';
 
 export default function EmptyBankCard(props) {
 
-  // const globalVar = useContext(AppContext);
+  const ip = useSelector(state => state.ip);
+  const username = useSelector(state => state.username);
 
-  // const createData = async () => {
-  //   try {
-  //     const response = fetch(`https://${globalVar.ip}:5502/newcard?owner=${globalVar.userName}`, {
-  //       method: 'GET'
-  //     })
-  //   } catch (error) {
-  //     console.log('THERES A PROBLEM W/ NEW CARD FETCH')
-  //     throw error;
-  //   }
-  // }
+  async function createData() {
+    try {
+      fetch(`https://${ip}:5502/newcard?owner=${username}`, {
+        method: 'GET'
+      })
+      .then((res) => console.log(res.status))
+    } catch (error) {
+      console.log('THERES A PROBLEM W/ NEW CARD FETCH')
+      throw error;
+    }
+  }
 
   if (props.createCard) {
     return (
       <TouchableOpacity onPress={() => {createData()}} style={styles.cardWrapper}>
-        <Text style={styles.text}>Theres no card, click to make one</Text>
+        <Text style={styles.text}>Карти немає, натисніть щоб створити</Text>
       </TouchableOpacity>
     )
   }
@@ -37,5 +41,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 25,
+    textAlign: 'center',
   }
 })

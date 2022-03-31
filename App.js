@@ -8,6 +8,8 @@ import LoginScreen from './screens/loginScreen';
 
 import { ModalPortal } from 'react-native-modals';
 
+import { Provider as PaperProvider } from 'react-native-paper';
+
 import * as Font from 'expo-font';
 
 const customFont = {
@@ -21,10 +23,11 @@ const Stack = createStackNavigator();
 
 export default function App() {
 
-  Font.loadAsync(customFont);
+  Font.loadAsync(customFont)
 
   return (
     <Provider store={store()}>
+      <PaperProvider>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -44,6 +47,7 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
       <ModalPortal />
+      </PaperProvider>
     </Provider>
   );
 }
