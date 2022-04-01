@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import SuggestionCard from '../components/suggestionCard';
 import WelcomeText from '../components/welcomeText';
+import DebugMenu from '../components/debugMenu';
 // import PropertyCard from '../components/card';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,6 +19,7 @@ export default function HomeScreen() {
   const ip = useSelector((state) => state.ip);
   const cardData = useSelector((state) => state.cardData);
   const userlist = useSelector(state => state.userlist);
+  const debugShown = useSelector((state) => state.debug);
 
   const state = useSelector(state => state)
 
@@ -117,35 +119,7 @@ export default function HomeScreen() {
           </TouchableOpacity> */}
         </ScrollView>
       </SuggestionCard>
-      {/* <SuggestionCard suggestion={'Debug panel'}>
-        <Button
-          onPress={() => updateUserlist()}
-          mode={'contained'}
-        >
-          Update userlist
-        </Button>
-        <Button
-          onPress={() => fetchOwnershipData()}
-          mode={'contained'}
-        >
-          Update ownership data
-        </Button>
-        <Button
-          onPress={() => fetchData()}
-          mode={'contained'}
-        >
-          Update card data
-        </Button>
-        <Button
-          onPress={() => console.log(state)}
-          mode={'contained'}
-        >
-          Console log state
-        </Button>
-        <Text>Username: {username}</Text>
-        <Text>IP: {ip}</Text>
-      </SuggestionCard> */}
-      <Text>Далі - більше!</Text>
+      {debugShown ? <DebugMenu /> : null}
     </ScrollView>
   )
 }

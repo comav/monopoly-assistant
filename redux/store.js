@@ -5,6 +5,7 @@ import ownershipDataReducer from "./reducers/ownershipDataReducer";
 import userlistReducer from "./reducers/userlistReducer";
 import usernameReducer from "./reducers/usernameReducer";
 import ipReducer from "./reducers/ipReducer";
+import debugMenuReducer from "./reducers/debugMenuReducer";
 
 const store = () => createStore(combineReducers({
   username: usernameReducer,
@@ -12,6 +13,7 @@ const store = () => createStore(combineReducers({
   ip: ipReducer,
   userlist: userlistReducer,
   ownershipData: ownershipDataReducer,
+  debug: debugMenuReducer,
 }))
 
 export default store;
