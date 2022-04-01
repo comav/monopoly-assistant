@@ -56,24 +56,24 @@ export default function LoginContents({ navigation }) {
   return (
     <View style={styles.wrapper}>
       <Modal
-      visible={errorVisible}
-      modalTitle={<ModalTitle title={'Warning!'} />}
-      swipeDirection={['up', 'down']}
-      swipeThreshold={200}
-      onSwipeOut={() => setErrorVisible(false)}
-      footer={
-        <ModalFooter>
-          <ModalButton
-            text="OK"
-            onPress={() => setErrorVisible(false)}
-          />
-        </ModalFooter>
-      }
-    >
+        visible={errorVisible}
+        modalTitle={<ModalTitle title={'Warning!'} />}
+        swipeDirection={['up', 'down']}
+        swipeThreshold={200}
+        onSwipeOut={() => setErrorVisible(false)}
+        footer={
+          <ModalFooter>
+            <ModalButton
+              text="OK"
+              onPress={() => setErrorVisible(false)}
+            />
+          </ModalFooter>
+        }
+      >
       <ErrorModal />
     </Modal>
+    <Text style={styles.textSecond}>Введіть дані</Text>
       <View style={styles.inputWrapper}>
-        <Text style={styles.textSecond}>Будь ласка, введіть дані</Text>
         <TextInput
           mode={'outlined'}
           label={'Username'}
@@ -108,15 +108,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textSecond: {
-    marginTop: 10,
-    fontSize: 25,
-    textAlign: "center",
+    width: '100%',
+    marginTop: '20%',
+    marginLeft: 45,
+    fontSize: 45,
     marginBottom: 20,
-    fontFamily: 'Roboto-Light'
+    fontFamily: 'Roboto-Light',
   },
   inputWrapper: {
     width: 300,
-    marginTop: '80%'
+    marginTop: '70%'
   },
   input: {
     fontSize: 20,

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, Image, StyleSheet, Modal, TextInput, SafeAreaView, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Button } from 'react-native-elements';
+import { Button } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -117,24 +117,34 @@ export default function HomeScreen() {
           </TouchableOpacity> */}
         </ScrollView>
       </SuggestionCard>
-      <SuggestionCard suggestion={'Debug panel'}>
+      {/* <SuggestionCard suggestion={'Debug panel'}>
         <Button
           onPress={() => updateUserlist()}
-          title={'Update userlist'}
-        /><Button
+          mode={'contained'}
+        >
+          Update userlist
+        </Button>
+        <Button
           onPress={() => fetchOwnershipData()}
-          title={'Update ownership data'}
-        /><Button
-        onPress={() => fetchData()}
-        title={'Update card data'}
-      />
-      <Button
-        onPress={() => console.log(state)}
-        title={'Console log state'}
-      />
+          mode={'contained'}
+        >
+          Update ownership data
+        </Button>
+        <Button
+          onPress={() => fetchData()}
+          mode={'contained'}
+        >
+          Update card data
+        </Button>
+        <Button
+          onPress={() => console.log(state)}
+          mode={'contained'}
+        >
+          Console log state
+        </Button>
         <Text>Username: {username}</Text>
         <Text>IP: {ip}</Text>
-      </SuggestionCard>
+      </SuggestionCard> */}
       <Text>Далі - більше!</Text>
     </ScrollView>
   )

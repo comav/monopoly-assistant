@@ -69,6 +69,15 @@ const styles = StyleSheet.create({
   wrapper: {
     width: '96%',
     height: 250,
+    shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 2,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+
+elevation: 5,
   },
   card: {
     width: '100%',

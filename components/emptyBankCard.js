@@ -1,5 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
+
+import wait from './wait';
 
 import { useSelector } from 'react-redux';
 
@@ -8,12 +11,17 @@ export default function EmptyBankCard(props) {
   const ip = useSelector(state => state.ip);
   const username = useSelector(state => state.username);
 
+  const [showSpinner, setShowSpinner] = useState(false)
+
   async function createData() {
+    setShowSpinner(true)
     try {
-      fetch(`https://${ip}:5502/newcard?owner=${username}`, {
+      await fetch(`http://${ip}:5502/newcard?owner=${username}`, {
         method: 'GET'
       })
       .then((res) => console.log(res.status))
+      .then(wait(500))
+      .then(() => setShowSpinner(false))
     } catch (error) {
       console.log('THERES A PROBLEM W/ NEW CARD FETCH')
       throw error;
@@ -23,7 +31,7 @@ export default function EmptyBankCard(props) {
   if (props.createCard) {
     return (
       <TouchableOpacity onPress={() => {createData()}} style={styles.cardWrapper}>
-        <Text style={styles.text}>Карти немає, натисніть щоб створити</Text>
+        {showSpinner ? <ActivityIndicator animating={showSpinner} size={'large'}/> : <Text>Сталася помилка. Натисніть щоб спробувати знову</Text>}
       </TouchableOpacity>
     )
   }

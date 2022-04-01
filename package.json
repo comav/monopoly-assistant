@@ -11,7 +11,7 @@
   "dependencies": {
     "@babel/preset-typescript": "^7.16.7",
     "@gorhom/bottom-sheet": "4",
-    "@react-native-async-storage/async-storage": "~1.15.0",
+    "@react-native-async-storage/async-storage": "^1.17.3",
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-picker/picker": "2.2.1",
     "@react-navigation/material-bottom-tabs": "^6.1.1",
@@ -29,6 +29,7 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
+    "react-native-animated-splash-screen": "^2.0.5",
     "react-native-elements": "^3.4.2",
     "react-native-extra-dimensions-android": "^1.2.5",
     "react-native-gesture-handler": "~2.1.0",
