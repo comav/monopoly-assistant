@@ -120,10 +120,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   headerText: {
-    fontSize: 40,
+    fontSize: 45,
     color: 'black',
     marginLeft: 25,
-    marginTop: 30,
+    marginTop: '20%',
     fontFamily: 'Roboto-Light'
   },
   modalHeaderText: {

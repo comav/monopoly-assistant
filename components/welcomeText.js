@@ -9,11 +9,11 @@ export default React.memo(function WelcomeText(props) {
 
 const styles = StyleSheet.create({
   text: {
-    marginBottom: 10,
-    marginTop: 15,
-    fontSize: 45,
     width: '100%',
-    marginLeft: '10%',
-    fontFamily: 'Roboto-Light'
+    marginTop: '15%',
+    marginLeft: 45,
+    fontSize: 45,
+    marginBottom: 20,
+    fontFamily: 'Roboto-Light',
   }
 })

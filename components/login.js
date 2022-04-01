@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { Modal, ModalTitle } from "react-native-modals";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -25,14 +27,15 @@ export default function LoginContents({ navigation }) {
 
   const [errorVisible, setErrorVisible] = useState(false);
 
-  const ipRegex = /\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b/;
+  const ipRegex = /\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b/;.0
 
   function submitCreds() {
     if (ipRegex.test(ipEditable) === true && usernameEditable !== '') {
       dispatch({ type: CHANGE_USERNAME, payload: usernameEditable });
       dispatch({ type: CHANGE_IP, payload: ipEditable });
       fetchData();
-      navigation.navigate('Tabs-nested')
+      navigation.navigate('Tabs-nested');
+
     } else {
       setErrorVisible(true);
     }

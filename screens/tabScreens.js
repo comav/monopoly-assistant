@@ -6,6 +6,7 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import HomeScreen from './mainTab';
 import BankScreen from "./bankScreen";
 import CardsScreen from "./cardsTab";
+import SettingsScreen from "./settingsScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -46,7 +47,18 @@ export default function TabScreens() {
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="cards" color={color} size={26} />
           )
-        }} />
+        }} 
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          tabBarLabel: 'Опції',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="cog" color={color} size={26} />
+          )
+        }}
+      />
     </Tab.Navigator>
   )
 }
