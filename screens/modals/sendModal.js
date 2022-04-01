@@ -1,5 +1,6 @@
 import React, {useContext, useState} from 'react';
-import {StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View} from "react-native";
+import {StyleSheet, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
+import { Button, TextInput } from 'react-native-paper';
 import {Picker} from "@react-native-picker/picker";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -24,6 +25,7 @@ export default function SendModal(props) {
         method: 'GET'
       })
         .then(() => updateData())
+        .then(ToastAndroid.show(`Надіслано ${moneyAmount} UAH`, ToastAndroid.SHORT))
     } catch (e) {
       throw e;
     }
@@ -73,20 +75,23 @@ export default function SendModal(props) {
         </Picker>
       </View>
       <View style={styles.pickerWrapper}>
-        <Text style={{fontSize: 16}}>Сума:</Text>
         <TextInput
           keyboardType={'numeric'}
-          placeholder={'Введіть...'}
+          label={'Сума'}
+          mode="outlined"
           style={styles.textInput}
           onChangeText={(amount) => onChangeMoneyAmount(amount)}
           value={moneyAmount}
         />
       </View>
       <View style={styles.buttonWrapper}>
-        <TouchableOpacity style={styles.button} onPress={() => sendPaymentRequest()}>
-          <Text style={{fontSize: 24}}>ГО</Text>
-          <MaterialCommunityIcons name={'send'} style={{fontSize: 24, marginLeft: 5}}/>
-        </TouchableOpacity>
+        <Button
+          icon={"send"}
+          labelStyle={{fontSize: 26}}
+          onPress={() => sendPaymentRequest()}
+        >
+          ГО
+        </Button>
       </View>
     </View>
   )
@@ -111,8 +116,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textInput: {
-    padding: 5,
     fontSize: 16,
+    width: '95%',
   },
   button: {
     display: "flex",
@@ -124,8 +129,8 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     display: "flex",
-    width: '100%',
-    height: '75%',
+    width: '95%',
+    height: '68%',
     alignItems: "flex-end",
     justifyContent: "flex-end",
   },
