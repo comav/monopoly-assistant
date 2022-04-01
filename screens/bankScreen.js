@@ -5,34 +5,21 @@ import BottomSheet from '@gorhom/bottom-sheet';
 
 import BankCard from '../components/bankCard';
 import EmptyCard from '../components/emptyBankCard';
-import ActionBubble from '../components/actionBubble';
-import ActionWrapper from '../components/actionWrapper';
 import SendModal from "./modals/sendModal";
 
-import Delayed from '../components/delayed';
+import { useSelector, useDispatch } from 'react-redux';
+import {UPDATE_CARD_DATA, UPDATE_OWNERSHIP_DATA, UPDATE_USERLIST} from '../redux/consts';
 
-import AppContext from '../components/AppContext';
+export default function BankScreen(props) {
 
-import {updateCardData} from "../components/redux/actions/cardDataAction";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {changeUsername} from "../components/redux/actions/usernameAction";
-import {updateUserlist} from "../components/redux/actions/userlistAction";
-import CardHistory from '../components/cardHistory';
+  const username = useSelector((state) => state.username);
+  const ip = useSelector((state) => state.ip);
+  const cardData = useSelector((state) => state.cardData);
+  const userlist = useSelector(state => state.userlist);
 
-function BankScreen(props) {
+  const dispatch = useDispatch();
 
-  const globalVar = useContext(AppContext);
-
-  //console.log(globalVar);
-
-  const [cardData, setCardData] = useState({});
-  const [propOwnageData, setPropOwnageData] = useState({});
-  const [sendModal, setSendModalOpen] = useState(false);
-  const [buyModal, setBuyModalOpen] = useState(false);
-  const [tradeModal, setTradeModalOpen] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const [isCardDataLoaded, setCardDataLoaded] = useState(false);
 
   const bottomSheetRef = useRef(null);
   const snapPoints = useMemo(() => ['12%', '68%'], []);
@@ -43,7 +30,6 @@ function BankScreen(props) {
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     fetchData();
-    //fetchCardOwnageData();
     wait(1000).then(() => setRefreshing(false));
   }, [])
 
@@ -53,27 +39,26 @@ function BankScreen(props) {
 
   async function fetchData() {
     try {
-      const response = await fetch(`http://${globalVar.ip}:5502/getcardinfo?owner=${globalVar.userName}`, {
-          method: 'GET'
-        }
+      await fetch(`http://${ip}:5502/getcardinfo?owner=${username}`, {
+        method: 'GET'
+      }
       )
         .then((response) => response.json())
-        .then(res => props.updateCardData(res))
-        .then(() => console.log('SUS', props))
+        .then(res => dispatch({type: UPDATE_CARD_DATA, payload: res}))
+        .then(console.log(cardData));
     } catch (error) {
-      console.log('THERES A PROBLEM W/ GET CARD FETCH');
-      setCardDataLoaded(false);
+      console.log('THERES A PROBLEM W/ GET CARD FETCH')
       throw error;
     }
   }
 
   async function fetchLists() {
     try {
-      const response = await fetch(`http://${globalVar.ip}:5502/getuserlist`, {
+      const response = await fetch(`http://${ip}:5502/getuserlist`, {
         method: 'GET'
       })
         .then((response) => response.json())
-        .then(res => props.setUserlist(res));
+        .then(res => dispatch({ type: UPDATE_USERLIST, payload: res }));
     } catch (error) {
       console.log('THERES A PROBLEM W/ GET USERLISTS FETCH')
       throw error;
@@ -82,11 +67,11 @@ function BankScreen(props) {
 
   async function fetchCardOwnageData() {
     try {
-      const response = await fetch(`http://${globalVar.ip}:5502/getpropertyownagedata`, {
+      const response = await fetch(`http://${ip}:5502/getpropertyownagedata`, {
         method: 'GET'
       })
         .then((response) => response.json())
-        .then((res) => setPropOwnageData(res))
+        .then((res) => dispatch({type: UPDATE_OWNERSHIP_DATA, payload: res}))
         .then((res) => console.log(res))
     } catch (error) {
       console.log('Theres a problem with fetchCardOwnageData function');
@@ -112,7 +97,7 @@ function BankScreen(props) {
         />
       }>
         <View style={styles.cardWrapper}>
-          {props.cardData.number == '0000 0000 0000 0000' ? 
+          {cardData.number == '0000 0000 0000 0000' ? 
             <EmptyCard
               createCard={true}
               onPress={() => {
@@ -121,10 +106,10 @@ function BankScreen(props) {
             />
             :
             <BankCard
-              cardNumber={props.cardData.number}
-              network={props.cardData.network}
-              design={props.cardData.design}
-              balance={props.cardData.balance}
+              cardNumber={cardData.number}
+              network={cardData.network}
+              design={cardData.design}
+              balance={cardData.balance}
             />
           }
         </View>
@@ -181,19 +166,3 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   }
 })
-
-const mapStateToProps = (state) => {
-  return {
-    cardData: state.cardData,
-    userlist: state.userlist,
-  }
-}
-
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({
-    updateCardData,
-    updateUserlist,
-  }, dispatch)
-);
-
-export default connect(mapStateToProps, mapDispatchToProps)(BankScreen);

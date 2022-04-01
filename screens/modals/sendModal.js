@@ -1,28 +1,31 @@
 import React, {useContext, useState} from 'react';
-import {StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View} from "react-native";
-import AppContext from "../../components/AppContext";
+import {StyleSheet, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
+import { Button, TextInput } from 'react-native-paper';
 import {Picker} from "@react-native-picker/picker";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import {updateCardData} from "../../components/redux/actions/cardDataAction";
-import {updateUserlist} from "../../components/redux/actions/userlistAction";
-import {changeUsername} from "../../components/redux/actions/usernameAction";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
+import { useSelector, useDispatch } from 'react-redux';
+import { UPDATE_CARD_DATA } from '../../redux/consts';
 
-function SendModal(props) {
+export default function SendModal(props) {
 
-  const globalVar = useContext(AppContext);
+  const username = useSelector((state) => state.username);
+  const ip = useSelector((state) => state.ip);
+  const cardData = useSelector((state) => state.cardData);
+  const userlist = useSelector(state => state.userlist);
+
+  const dispatch = useDispatch();
 
   const [selectedUser, setSelectedUser] = useState('0000 0000 0000 0000');
   const [moneyAmount, onChangeMoneyAmount] = useState(null);
 
   async function sendPaymentRequest() {
     try {
-      const response = fetch(`http://${globalVar.ip}:5502/transaction?sender=${props.cardData.number}&receiver=${selectedUser}&amount=${moneyAmount}`, {
+      await fetch(`http://${ip}:5502/transaction?sender=${cardData.number}&receiver=${selectedUser}&amount=${moneyAmount}`, {
         method: 'GET'
       })
         .then(() => updateData())
+        .then(ToastAndroid.show(`Надіслано ${moneyAmount} UAH`, ToastAndroid.SHORT))
     } catch (e) {
       throw e;
     }
@@ -33,14 +36,14 @@ function SendModal(props) {
       return;
     }
     try {
-      const response = await fetch(`http://${globalVar.ip}:5502/getcardinfo?owner=${globalVar.userName}`, {
+        await fetch(`http://${ip}:5502/getcardinfo?owner=${username}`, {
           method: 'GET'
         }
       )
         .then((response) => response.json())
-        .then(res => props.updateCardData(res))
+        .then(res => dispatch({type: UPDATE_CARD_DATA, payload: res}))
         .then(res =>console.log('res', res))
-        .then(() => console.log('SUS', props))
+        .then(() => console.log('SUS', cardData))
     } catch (error) {
       console.log('THERES A PROBLEM W/ GET CARD FETCH')
       throw error;
@@ -58,8 +61,8 @@ function SendModal(props) {
           }}
           style={styles.picker}
         >
-          {props.userlist?.map((item) => {
-            if (item.label === globalVar.userName) {
+          {userlist?.map((item) => {
+            if (item.label === username) {
               return (
                 <Picker.Item label={"Виберіть..."} value={"do_nothing"} key={"Current_user"}/>
               )
@@ -72,20 +75,23 @@ function SendModal(props) {
         </Picker>
       </View>
       <View style={styles.pickerWrapper}>
-        <Text style={{fontSize: 16}}>Сума:</Text>
         <TextInput
           keyboardType={'numeric'}
-          placeholder={'Введіть...'}
+          label={'Сума'}
+          mode="outlined"
           style={styles.textInput}
           onChangeText={(amount) => onChangeMoneyAmount(amount)}
           value={moneyAmount}
         />
       </View>
       <View style={styles.buttonWrapper}>
-        <TouchableOpacity style={styles.button} onPress={() => sendPaymentRequest()}>
-          <Text style={{fontSize: 24}}>ГО</Text>
-          <MaterialCommunityIcons name={'send'} style={{fontSize: 24, marginLeft: 5}}/>
-        </TouchableOpacity>
+        <Button
+          icon={"send"}
+          labelStyle={{fontSize: 26}}
+          onPress={() => sendPaymentRequest()}
+        >
+          ГО
+        </Button>
       </View>
     </View>
   )
@@ -110,8 +116,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textInput: {
-    padding: 5,
     fontSize: 16,
+    width: '95%',
   },
   button: {
     display: "flex",
@@ -123,27 +129,9 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     display: "flex",
-    width: '100%',
-    height: '75%',
+    width: '95%',
+    height: '68%',
     alignItems: "flex-end",
     justifyContent: "flex-end",
   },
 })
-
-const mapStateToProps = (state) => {
-  return {
-    cardData: state.cardData,
-    userlist: state.userlist,
-    username: state.username,
-  }
-}
-
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({
-    updateCardData,
-    updateUserlist,
-    changeUsername,
-  }, dispatch)
-);
-
-export default connect(mapStateToProps, mapDispatchToProps)(SendModal);

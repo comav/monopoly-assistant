@@ -3,18 +3,16 @@ import React, {useState, useContext} from 'react';
 import {View, Text, StyleSheet, ScrollView, TouchableOpacity, Button, Image} from 'react-native';
 import Card from '../components/card';
 import {BottomModal, ModalContent, SlideAnimation} from 'react-native-modals';
-
-import AppContext from '../components/AppContext';
+import {MaterialCommunityIcons} from 'react-native-vector-icons';
 
 const cardData = require('../assets/cards.json');
 
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 
-import {updateOwnershipData} from "../components/redux/actions/ownershipDataAction";
+import {updateOwnershipData} from "../redux/actions/ownershipDataAction";
 
 function CardsScreen(props) {
-  const globalVar = useContext(AppContext);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState({
@@ -32,7 +30,7 @@ function CardsScreen(props) {
       0
     ],
     key: 0,
-    homes: 0
+    homes: 0,
   });
   console.log(props)
   return (
@@ -56,7 +54,7 @@ function CardsScreen(props) {
           </View>
           <Text style={styles.modalHeaderText}>{modalData.name}</Text>
           <View style={{marginTop: 10, marginLeft: 27, fontSize: 25,}}>
-            <Image source={require('../assets/amogus.jpg')} style={{height: 300, width: 300, marginBottom: 10}} />
+            <Image source={<MaterialCommunityIcons name={'home-city'} />} style={{height: 300, width: 300, marginBottom: 10}} />
             <Text style={styles.modalText}>Ціна: {modalData.price}$</Text>
             <Text style={styles.modalText}>Застава: {modalData.mortgage}$</Text>
             <Text style={styles.modalText}>Ціна оновлення: {modalData.upgradePrice}</Text>
@@ -122,10 +120,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   headerText: {
-    fontSize: 40,
+    fontSize: 45,
     color: 'black',
     marginLeft: 25,
-    marginTop: 30,
+    marginTop: '20%',
     fontFamily: 'Roboto-Light'
   },
   modalHeaderText: {
