@@ -8,7 +8,7 @@ import { Modal, ModalTitle } from "react-native-modals";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { CHANGE_IP, CHANGE_USERNAME } from "../redux/consts";
+import { CHANGE_IP, CHANGE_USERNAME, FETCH_USER_REQUEST } from "../redux/consts";
 
 import ErrorModal from "../screens/modals/loginErrorModal";
 import { ModalFooter } from "react-native-modals";
@@ -42,18 +42,7 @@ export default function LoginContents({ navigation }) {
   }
 
   async function fetchData() {
-    try {
-      await fetch(`http://${ip}:5502/getcardinfo?owner=${username}`, {
-        method: 'GET'
-      }
-      )
-        .then((response) => response.json())
-        .then(res => dispatch({ type: UPDATE_CARD_DATA, payload: res }))
-        .then(console.log(cardData));
-    } catch (error) {
-      console.log('THERES A PROBLEM W/ GET CARD FETCH')
-      throw error;
-    }
+    dispatch(FETCH_USER_REQUEST);
   }
 
   return (
