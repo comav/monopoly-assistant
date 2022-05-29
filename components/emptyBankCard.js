@@ -6,7 +6,7 @@ import wait from './wait';
 
 import { useSelector } from 'react-redux';
 
-let bgImage = require('../assets/card_error.png');
+let bgImage = require('../assets/cards/card_error.png');
 
 export default function EmptyBankCard(props) {
 

@@ -4,7 +4,7 @@
     "slug": "monopoly-assistant",
     "version": "1.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon/foreground.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -21,13 +21,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/1x/foreground.png",
+        "foregroundImage": "./assets/icon/foreground.png",
         "backgroundColor": "#15616d"
       },
       "package": "com.pfxel.monopolyassistant"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     }
   }
 }

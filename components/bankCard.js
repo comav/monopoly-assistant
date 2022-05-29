@@ -8,44 +8,43 @@ import { updateCardData } from "../redux/actions/cardDataAction";
 import { changeUsername } from "../redux/actions/usernameAction";
 import { changeIP } from "../redux/actions/ipAction";
 
-let shiza = require('../assets/shiza_logo.png');
-let procard = require('../assets/procard_logo.png');
-let loadingNet = require('../assets/loading_net.gif');
-let procard_white = require('../assets/procard_logo_white.png');
+let shiza = require('../assets/card-networks/shiza_logo.png');
+let procard = require('../assets/card-networks/procard_logo.png');
+let procard_white = require('../assets/card-networks/procard_logo_white.png');
 
 let cardDesign = [
   {
-    image: require('../assets/card_hamburger.png')
+    image: require('../assets/cards/card_hamburger.png')
   },
   {
-    image: require('../assets/card_abstraction.png')
+    image: require('../assets/cards/card_abstraction.png')
   },
   {
-    image: require('../assets/card_terminal.png')
+    image: require('../assets/cards/card_terminal.png')
   },
   {
-    image: require('../assets/card_hex.png')
+    image: require('../assets/cards/card_hex.png')
   },
   {
-    image: require('../assets/card_crimson.png')
+    image: require('../assets/cards/card_crimson.png')
   },
   {
-    image: require('../assets/card_triangles.png')
+    image: require('../assets/cards/card_triangles.png')
   },
   {
-    image: require('../assets/card_zebra.png')
+    image: require('../assets/cards/card_zebra.png')
   },
   {
-    image: require('../assets/card_shapes.png')
+    image: require('../assets/cards/card_shapes.png')
   },
   {
-    image: require('../assets/card_icecream.png')
+    image: require('../assets/cards/card_icecream.png')
   },
   {
-    image: require('../assets/card_waves.png')
+    image: require('../assets/cards/card_waves.png')
   },
   {
-    image: require('../assets/card_city_animated.gif')
+    image: require('../assets/cards/card_city_animated.gif')
   }
 ]
 
