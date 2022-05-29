@@ -5,7 +5,7 @@ import Card from '../components/card';
 import {BottomModal, ModalContent, SlideAnimation} from 'react-native-modals';
 import {MaterialCommunityIcons} from 'react-native-vector-icons';
 
-const cardData = require('../assets/cards.json');
+const cardData = require('../assets/json/cards.json');
 
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";

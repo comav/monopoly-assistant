@@ -85,34 +85,34 @@ export default function HomeScreen() {
       <SuggestionCard suggestion={'Змініть дизайн вашої карти'}>
         <ScrollView horizontal={true} style={styles.scrollCardView} showsHorizontalScrollIndicator={false}>
           <TouchableOpacity onPress={() => changeCardDesign(0)}>
-            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_hamburger.png')} />
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/cards/card_hamburger.png')} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => changeCardDesign(4)}>
-            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_crimson.png')} />
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/cards/card_crimson.png')} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => changeCardDesign(1)}>
-            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_abstraction.png')} />
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/cards/card_abstraction.png')} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => changeCardDesign(3)}>
-            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_hex.png')} />
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/cards/card_hex.png')} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => changeCardDesign(2)}>
-            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_terminal.png')} />
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/cards/card_terminal.png')} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => changeCardDesign(5)}>
-            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_triangles.png')} />
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/cards/card_triangles.png')} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => changeCardDesign(6)}>
-            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_zebra.png')} />
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/cards/card_zebra.png')} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => changeCardDesign(7)}>
-            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_shapes.png')} />
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/cards/card_shapes.png')} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => changeCardDesign(8)}>
-            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_icecream.png')} />
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/cards/card_icecream.png')} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => changeCardDesign(9)}>
-            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_waves.png')} />
+            <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/cards/card_waves.png')} />
           </TouchableOpacity>
           {/* <TouchableOpacity onPress={() => changeCardDesign(10)}>
             <Image style={styles.cardSuggestionImage} resizeMethod='scale' source={require('../assets/card_city_animated.gif')} />
