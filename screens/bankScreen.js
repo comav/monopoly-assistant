@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {StatusBar} from 'expo-status-bar';
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -84,8 +84,6 @@ export default function BankScreen(props) {
     fetchCardOwnageData();
     fetchLists();
   }, [])
-
-  //console.log(propOwnageData);
 
   return (
     <View style={styles.wrapper}>

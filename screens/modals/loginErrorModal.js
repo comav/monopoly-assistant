@@ -1,8 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet } from 'react-native';
-import { ModalTitle } from "react-native-modals";
+import { Text } from 'react-native';
 import { ModalContent } from "react-native-modals";
-import { Button } from "react-native-paper";
 
 export default function ErrorModal(props) {
   return (

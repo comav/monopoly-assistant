@@ -1,8 +1,7 @@
-import React, {useContext, useState} from 'react';
-import {StyleSheet, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
+import React, {useState} from 'react';
+import {StyleSheet, Text, ToastAndroid, View} from "react-native";
 import { Button, TextInput } from 'react-native-paper';
 import {Picker} from "@react-native-picker/picker";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { useSelector, useDispatch } from 'react-redux';
 import { UPDATE_CARD_DATA } from '../../redux/consts';

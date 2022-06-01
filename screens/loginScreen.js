@@ -1,6 +1,5 @@
 import React from "react";
-import { View, Button, TextInput, StyleSheet } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
+import { StyleSheet } from "react-native";
 
 import LoginContents from "../components/login";
 
