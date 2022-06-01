@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-import { TextPropTypes } from 'react-native';
+import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, ImageBackground } from 'react-native';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import { updateCardData } from "../redux/actions/cardDataAction";
-import { changeUsername } from "../redux/actions/usernameAction";
-import { changeIP } from "../redux/actions/ipAction";
 
 let shiza = require('../assets/card-networks/shiza_logo.png');
 let procard = require('../assets/card-networks/procard_logo.png');
