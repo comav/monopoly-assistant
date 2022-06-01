@@ -6,7 +6,7 @@ export default function Card(props) {
 
   return (
     <View style={styles.wrapper}>
-      <View style={styles.textWrapper} style={{
+      <View style={[styles.textWrapper ,{
         backgroundColor: props.color,
         height: 50,
         display: 'flex',
@@ -14,7 +14,7 @@ export default function Card(props) {
         alignItems: 'center',
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10
-      }}>
+      }]}>
         <Text style={styles.itemName}>{props.title}</Text>
       </View>
       <View style={styles.cardBody}>

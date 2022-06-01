@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, ImageBackground } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 
 import wait from './wait';
 
 import { useSelector } from 'react-redux';
+
+let bgImage = require('../assets/cards/card_error.png');
 
 export default function EmptyBankCard(props) {
 
@@ -31,7 +33,9 @@ export default function EmptyBankCard(props) {
   if (props.createCard) {
     return (
       <TouchableOpacity onPress={() => {createData()}} style={styles.cardWrapper}>
-        {showSpinner ? <ActivityIndicator animating={showSpinner} size={'large'}/> : <Text>Сталася помилка. Натисніть щоб спробувати знову</Text>}
+        <ImageBackground source={bgImage} style={styles.bg} imageStyle={{borderRadius: 15}}>
+          {showSpinner ? <ActivityIndicator animating={showSpinner} size={'large'}/> : <Text>Сталася помилка. Натисніть щоб спробувати знову</Text>}
+        </ImageBackground>
       </TouchableOpacity>
     )
   }
@@ -50,5 +54,12 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 25,
     textAlign: 'center',
+  },
+  bg: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 })

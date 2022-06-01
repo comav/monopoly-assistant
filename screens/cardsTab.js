@@ -1,18 +1,13 @@
 import 'react-native-gesture-handler';
-import React, {useState, useContext} from 'react';
-import {View, Text, StyleSheet, ScrollView, TouchableOpacity, Button, Image} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, ScrollView, TouchableOpacity, Image} from 'react-native';
 import Card from '../components/card';
 import {BottomModal, ModalContent, SlideAnimation} from 'react-native-modals';
 import {MaterialCommunityIcons} from 'react-native-vector-icons';
 
-const cardData = require('../assets/cards.json');
+const cardData = require('../assets/json/cards.json');
 
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-
-import {updateOwnershipData} from "../redux/actions/ownershipDataAction";
-
-function CardsScreen(props) {
+export default function CardsScreen(props) {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState({
@@ -137,17 +132,3 @@ const styles = StyleSheet.create({
     fontSize: 15,
   }
 })
-
-const mapStateToProps = (state) => {
-  return {
-    ownershipData: state.ownershipData
-  }
-}
-
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({
-    updateOwnershipData
-  }, dispatch)
-);
-
-export default connect(mapStateToProps, mapDispatchToProps)(CardsScreen);
